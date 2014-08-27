@@ -1,6 +1,7 @@
 <?php
 	/*
 	Brian Warfield
+	CIS 12 PHP
 	27 August 2014
 	Purpose: Comments/Variables/Strings
 	*/
