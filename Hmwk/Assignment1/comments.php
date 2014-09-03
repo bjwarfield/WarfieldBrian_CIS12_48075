@@ -18,7 +18,7 @@
 	#Script 1.4 - comments.php
 	#Created 27 August 2014
 	#Created by Brian Warfield
-	#Not entirely unlike the goggles, this script does nothing.
+	#This script does nothing.
 	
 	echo "<p>This is a line of text.<br />
 	This is another line of text.</p>";
