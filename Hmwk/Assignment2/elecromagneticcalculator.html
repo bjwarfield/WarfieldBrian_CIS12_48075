@@ -15,7 +15,7 @@
 <body>
 	<h1>Identify the electromagnetic band based on wavelength.</h1>
 	<form action="band.php" method="get">
-		<label><input type="text" name="wavelength" size="3" maxlength="3" value="0"></input>Enter a wavelength in Meters </label><br/>
+		<input type="text" name="wavelength" size="15" maxlength="12" value="1"></input>Enter a wavelength in  <select name="unit"><option value="1000">Kilometers (km)</option><option value="1">Meters (m)</option><option value="0.01">Centimeters (cm)</option><option value="0.001">Millimeters (mm)</option><option value="0.000001">Micrometers (μm)</option><option value="0.000000001">Nanometers (μm)</option><option value="0.000000000001">Picoometers (pm)</option></select><br/>
 		<input name="go" value="Submit" type="submit"></input>
 	</form>
 </body>
