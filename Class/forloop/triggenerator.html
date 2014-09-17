@@ -1,0 +1,24 @@
+<?php
+	/*
+	Brian Warfield
+	CIS 12 PHP
+	15 September 2014
+	Purpose: Trig Generator Form
+	*/
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Trig Form</title>
+</head>
+<body>
+	<h1>Generate a Trig table</h1>
+	<form action="trig.php" method="get">
+		<label><input type="text" name="angStart" size="3" maxlength="3" value="0"></input>Enter a starting angle (deg) </label><br/>
+		<label><input type="text" name="angEnd" size="3" maxlength="3" value="90"></input>Enter an ending angle (deg)</label><br/>
+		<label><input type="text" name="angInc" size="3" maxlength="3" value="10"></input>Enter amount to increment (deg)</label><br/>
+		<input name="Calculate and Display" type="submit"></input>
+	</form>
+</body>
+</html>
