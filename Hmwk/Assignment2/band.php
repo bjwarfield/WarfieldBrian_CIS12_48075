@@ -26,17 +26,17 @@
 		echo "<h3>The wavelength is $wavelength Meters which falls within the ";
 		
 		//select suffix rext based on calculated wavelength
-		if($wavelength>pow(10,0)){
+		if($wavelength>5){
 			echo "Radio band</h3>";
-		}elseif($wavelength>pow(10,-4)){
+		}elseif($wavelength>10e-4){
 			echo "Microwave band</h3>";
-		}elseif($wavelength>pow(10,-5.5)){
+		}elseif($wavelength>5e-5){
 			echo "Infrared band</h3>";
-		}elseif($wavelength>pow(10,-7)){
+		}elseif($wavelength>10e-7){
 			echo "Visible band</h3>";
-		}elseif($wavelength>pow(10,-9)){
+		}elseif($wavelength>10e-9){
 			echo "Ultraviolet band</h3>";
-		}elseif($wavelength>pow(10,-11)){
+		}elseif($wavelength>10e-11){
 			echo "X-Ray band</h3>";
 		}else{
 			echo "Gamma Ray band</h3>";
