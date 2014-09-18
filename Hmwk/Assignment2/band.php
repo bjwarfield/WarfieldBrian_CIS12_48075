@@ -30,7 +30,7 @@
 			echo "Radio band</h3>";
 		}elseif($wavelength>10e-4){
 			echo "Microwave band</h3>";
-		}elseif($wavelength>5e-5){
+		}elseif($wavelength>((10e-5+10e-6)/2)){//calculate halfway between the bands
 			echo "Infrared band</h3>";
 		}elseif($wavelength>10e-7){
 			echo "Visible band</h3>";
