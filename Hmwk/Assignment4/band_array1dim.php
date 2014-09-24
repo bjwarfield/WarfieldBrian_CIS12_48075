@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<img src="spectrum.png"></img>
+	<img src="VisibleLightSpectrum-690x325.jpg"></img>
 	<table><thead>
 	<tr>
 		<th>Row Num</th>
