@@ -19,6 +19,7 @@
 		border:1px solid #999;
 		padding:5px;
 	}
+
 	</style>
 </head>
 
@@ -33,10 +34,10 @@
 	</thead>
 	<tbody>
 	<?PHP
-		//initialize arrays
+		//initialize Counter
 		$row = 0;
-		
-		for($count=3;$count>=-12;$count--){
+		//populate Table
+		for($count=3;$count>=-12;$count--){//range 10^3 to 10^-12
 			$row++;
 			$wavelength = pow(10,$count);
 		if($wavelength>5) echo "<tr><td>".$row."</td><td>10<sup>".$count."</sup></td><td>Radio</td><tr>";
