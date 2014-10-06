@@ -33,43 +33,36 @@
 </head>
 <body>
 	<?php
-		$initDep = 100;
-		$tableArray = array(array(0),array($initDep),array($initDep),array($initDep),array($initDep),array($initDep),array($initDep));//[0]Year,[1]5%,[2]6%,[3]7%,[4]8%,[5]9%,[6]10% 
+		//Declare and Initialize Variables
+		$initDep = 100;//initial deposit
+		$tableArray = array(array(0),array($initDep),array($initDep),array($initDep),array($initDep),array($initDep),array($initDep));//[0]Year, [1]5%, [2]6%, [3]7%, [4]8%, [5]9%, [6]10% 
 		$year;
-//		$tableArray[0][0]=0;//year column
-//		$tableArray[1][0]=$initDep;//5% Savings Rate
-//		$tableArray[2][0]=$initDep;//6% Savings Rate
-//		$tableArray[3][0]=$initDep;//7% Savings Rate
-//		$tableArray[4][0]=$initDep;//8% Savings Rate
-//		$tableArray[5][0]=$initDep;//9% Savings Rate
-//		$tableArray[6][0]=$initDep;//10% Savings Rate
-	//	echo "<pre".print_r($tableArray)."</pre>";//for debugging
+
+		//set the valeus of the array
 		function populateTable($array){
-			for($i=1;$i<=60;$i++){
-	//			echo print_r($i)."<br />";
-				$array[0][$i]=$i;
-				$array[1][$i]=$array[1][$i-1]*1.05;
-				$array[2][$i]=$array[2][$i-1]*1.06;
-				$array[3][$i]=$array[3][$i-1]*1.07;
-				$array[4][$i]=$array[4][$i-1]*1.08;
-				$array[5][$i]=$array[5][$i-1]*1.09;
-				$array[6][$i]=$array[6][$i-1]*1.1;
+			for($year=1;$year<=60;$year++){
+				$array[0][$year]=$year;
+				$array[1][$year]=$array[1][$year-1]*1.05;
+				$array[2][$year]=$array[2][$year-1]*1.06;
+				$array[3][$year]=$array[3][$year-1]*1.07;
+				$array[4][$year]=$array[4][$year-1]*1.08;
+				$array[5][$year]=$array[5][$year-1]*1.09;
+				$array[6][$year]=$array[6][$year-1]*1.1;
 			}
-	//		echo print_r($array)."<br />";//for debugging
+
 			return $array;
 		}
+		//output values to html table
 		function displayTable($arrayInput){
 			echo  "<h1>Savings Table</h1><table><thead><tr><th>Year</th><th>Savings at 5%</th><th>Savings at 6%</th><th>Savings at 7%</th><th>Savings at 8%</th><th>Savings at 9%</th><th>Savings at 10%</th></tr></thead><tbody>";
 			for($row=0;$row<count($arrayInput[0]);$row++){
 				echo "<tr>";
-	//			echo "Row = ".$row."<br />";//for debugging
 				for($cols=0;$cols<count($arrayInput);$cols++){
 					if($cols==0){
 						echo "<td>".$arrayInput[$cols][$row]."</td>";
 					}else{
 						echo "<td>$".number_format($arrayInput[$cols][$row], 2, ".", "," )."</td>";
 					}//end if-else
-	//				echo "cols = ".$cols."<br />";//for debugging
 				}//end col loop
 				echo "</tr>";
 			}//end Row loop
