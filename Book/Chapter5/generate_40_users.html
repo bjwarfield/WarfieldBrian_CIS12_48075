@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Random User Generator</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="names"></div>
+	<script>
+	 function initCase(string) {
+	 	return string.charAt(0).toUpperCase() + string.slice(1);
+	 }
+	 $names = $('#names');
+	 $.ajax({
+	 	url: 'http://api.randomuser.me/?results=40',
+	 	dataType: 'json',
+	 	success: function (data) {
+	 		for (var i in data.results) {
+	 			$names.append("INSERT into USERS VALUES (NULL,\"" + initCase(data.results[i].user.name.first) + "\",\"" + initCase(data.results[i].user.name.last) + "\",\"" + data.results[i].user.email + "\",SHA1(\"" + data.results[i].user.password + "\"), NOW());<br />");
+	 		}
+	 	}
+	 });
+	 </script>
+</body>
+</html>
