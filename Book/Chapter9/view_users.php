@@ -15,6 +15,7 @@ $num = mysqli_num_rows($r);
 
 if ($num > 0) { // If successfull
 	echo "<p>Registered Users: ".$num."</p>";
+	//print_r($r);
 
 	//table header
 	echo '<table align="center" cellspacing="3" cellpadding="3" width="75%">
