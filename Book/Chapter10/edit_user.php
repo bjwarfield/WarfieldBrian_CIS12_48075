@@ -56,9 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['confirm'])) {
 				// Print a message:
 				echo '<p>The user has been edited.</p>';	
 				
-			} else { // If it did not run OK.
+			} elseif($r && mysqli_affected_rows($dbc) == 0){
+				echo '<p>Submitted info matches existing data.<br />User not changed.</p>';
+			}else { // If it did not run OK.
 				echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+				//echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
 			}
 				
 		} else { // Already registered.
