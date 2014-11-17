@@ -153,7 +153,10 @@ nav ul ul ul {
 	text-align: center;
 	width: 751px;
 }
-
+.page_selector{
+	text-align: center;
+	padding: 15px 20px;
+}
 /* Added by Larry Ullman: */
 .error, .ad {
 	font-weight: bold;

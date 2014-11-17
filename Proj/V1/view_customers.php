@@ -60,9 +60,9 @@ echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
 	<td align="left"><b>Edit</b></td>
 	<td align="left"><b>Delete</b></td>
-	<td align="left"><b><a href="view_users.php?sort=ln">Last Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=fn">First Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=rd">Date Registered</a></b></td>
+	<td align="left"><b><a href="view_customers.php?sort=ln">Last Name</a></b></td>
+	<td align="left"><b><a href="view_customers.php?sort=fn">First Name</a></b></td>
+	<td align="left"><b><a href="view_customers.php?sort=rd">Date Registered</a></b></td>
 </tr>
 ';
 
@@ -87,9 +87,11 @@ mysqli_close($dbc);
 // Make the links to other pages, if necessary.
 if ($pages > 1) {
 	
-	echo '<br /><p>';
+	echo '<br /><div class ="page_selector">';
 	$current_page = ($start/$display) + 1;
-	
+	$top = $current_page +5;
+	$bottom = $current_page -5;
+	//echo '<br/>'.$bottom.$current_page.$top.'<br/>';
 	// If it's not the first page, make a Previous button:
 	if ($current_page != 1) {
 		echo '<a href="view_customers.php?s=' . ($start - $display) . '&p=' . $pages . '&sort=' . $sort . '">Previous</a> ';
@@ -97,10 +99,29 @@ if ($pages > 1) {
 	
 	// Make all the numbered pages:
 	for ($i = 1; $i <= $pages; $i++) {
-		if ($i != $current_page) {
-			echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
-		} else {
-			echo $i . ' ';
+		if($pages<10){
+			if ($i != $current_page) {
+				echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
+			} else {
+				echo $i . ' ';
+			}
+		}else{
+
+			if ( $i != $current_page) {
+				if($i > $bottom && $i < $top){
+					echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
+				}elseif($i == 1 ){
+					echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">First</a> ';
+				}elseif($i == $pages){
+					echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">Last</a> ';
+				}elseif($i == $bottom){
+					echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">...' . $i . '</a> ';
+				}elseif($i == $top){
+					echo '<a href="view_customers.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '...</a> ';
+				}
+			} elseif ($i = $current_page) {
+				echo $i . ' ';
+			}
 		}
 	} // End of FOR loop.
 	
@@ -109,7 +130,7 @@ if ($pages > 1) {
 		echo '<a href="view_customers.php?s=' . ($start + $display) . '&p=' . $pages . '&sort=' . $sort . '">Next</a>';
 	}
 	
-	echo '</p>'; // Close the paragraph.
+	echo '</div>'; // Close the paragraph.
 	
 } // End of links section.
 	

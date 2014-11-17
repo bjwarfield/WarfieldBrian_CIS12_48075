@@ -16,7 +16,7 @@
 
 	 echo '<div class="item_detail">';
 	 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-	 	echo '<img src="http://placehold.it/320x320">';
+	 	echo '<img src="http://placehold.it/380x380">';
 	 	echo '<h1>'.$row['name'].'</h1>';
 	 	echo '<p>Manufacturer: '.$row['manufacturer_name'].'</p>';
 	 	echo '<p>SKU: '.$row['sku'].'</p>';
