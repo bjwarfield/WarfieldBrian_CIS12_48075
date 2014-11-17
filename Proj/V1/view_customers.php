@@ -130,7 +130,7 @@ if ($pages > 1) {
 		echo '<a href="view_customers.php?s=' . ($start + $display) . '&p=' . $pages . '&sort=' . $sort . '">Next</a>';
 	}
 	
-	echo '</div>'; // Close the paragraph.
+	echo '</div>'; // Close the div.
 	
 } // End of links section.
 	

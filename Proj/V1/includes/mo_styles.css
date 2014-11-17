@@ -143,7 +143,13 @@ nav ul ul ul {
 #content p {
 	padding: 20px 20px 0;
 }
-
+.paginator{
+	float: right;
+	padding:6px 0;
+}
+.cat_heading{
+	float:left;
+}
 /* footer */
 #footer {
 	border-top: 1px solid #999;
@@ -163,12 +169,11 @@ nav ul ul ul {
 	color: #C00
 }
 input, select, .input {
-	padding: 5px;
-	font-weight: bold;
+	padding: 2px;
 	font-size: 1em;
-	color: #008040;
+	color: #555;
 	background: #FFFFFF;
-	border: 1px dotted #004080;
+	border: 1px dashed #333;
 }
 
 .products_block{
