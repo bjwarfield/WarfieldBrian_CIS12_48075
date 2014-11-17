@@ -19,14 +19,14 @@ body {
 	background: #ffffff;
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
-	max-width: 800px;
+	width: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 /* header */
 header {
-	border-bottom: 2px solid #999;
+	border-bottom	: 2px solid #999;
 	height: 80px;
 	margin: 0 auto;
 	width: 100%;
@@ -48,15 +48,19 @@ header h2 {
 }
 
 /* navigation */
+.navbar{
+	background-color: #eee;
+	border-bottom: 2px solid #999;	
+}
 nav ul ul {
 	display: none;
 }
 nav ul li:hover > ul {
 	display: block;
-	
+
 }
 nav ul {
-	padding: 0 20px;
+	padding: 0;
 	list-style: none;
 	position: relative;
 	display: inline-table;
@@ -81,9 +85,11 @@ nav ul li:hover a {
 }
 nav ul li a {
 	display: block;
-	padding: 10px 15px;
+	padding: 10px 20px;
+	height: 100%;
 	color: #757575;
 	text-decoration: none;
+	vertical-align: middle;
 }
 nav ul ul {
 	background: #5f6975;
@@ -97,12 +103,12 @@ nav ul ul {
 }
 nav ul ul li {
 	float: none;
-	border-top: 1px solid #6b727c;
-	border-bottom: 1px solid #575f6a;
 	position: relative;
+	border-top:1px solid #999;
+	border-bottom:1px solid #555;
 }
 nav ul ul li a {
-	padding: 10px 15px;
+	padding: 10px 10px;
 	color: #fff;
 }
 nav ul ul li a:hover {
@@ -115,6 +121,12 @@ nav ul ul li a:hover {
 nav ul ul ul {
 	position: absolute; left: 100%; top:0;
 }
+/*breadcrumbs*/
+.breadcrumbs{
+	margin: 15px 10px;
+	
+}
+
 
 /* content */
 #content {
@@ -185,4 +197,12 @@ input, select, .input {
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	background-color: #669;
+}
+footer{
+	text-align: center;
+	vertical-align: middle;
+	bottom: 0px;
+	padding:10px 0;
+	width: 800px;
+	background-color: #ccc;
 }

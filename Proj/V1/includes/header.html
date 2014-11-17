@@ -14,7 +14,7 @@
 	@require("project_DBconnect.php");
 
 	//Query DB for Category Data
-	$q = 'SELECT category_id, parent_category_id, name FROM entity_categories ORDER BY parent_category_id, position;';
+	$q = 'SELECT category_id, parent_category_id, name FROM entity_categories WHERE is_active = TRUE ORDER BY parent_category_id, position;';
 	$r= @mysqli_query($dbc, $q);
 
 	$data = array();//all category data
@@ -47,7 +47,7 @@
 		}
 	}
 
-	echo "<nav> ";
+	echo '<nav class="navbar"> ';
 	output_cats();//build navbar 
 	echo"</nav> ";
 

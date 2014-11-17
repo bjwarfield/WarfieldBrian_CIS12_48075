@@ -34,6 +34,7 @@
 	*/
 
 	$cutlery = array("14\\\" Honing Steel", "10\\\" Chef's Knife", "9\\\" Carving Knife", "8\\\" Chef's Knife", "6\\\" Utility Knife", "6.5\\\" Santoku", "4\\\" Steak Knife", "3.5\\\" Paring Knife");
+	$ktools = array('can opener', 'corkscrew', 'garlic press', 'grater', 'kitchen shears', 'ladle', 'lemon press', 'masher', 'peeler', 'peppermill', 'slotted spoon', 'spatula', 'tongs', 'whisk');
 
 	#Kaine Cutlery
 	#Classic
@@ -46,11 +47,22 @@
 		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("Kaine Cutlery - ElitePro Series '.$value.'", 2, "KC30'.$key.'", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.strval(250-$key*15).', 0, 10, "'.upc().'", 1, 21, NOW());<br />';
 	}*/
 
-	$q = 'SELECT product_id FROM  entity_products where manufacturer_id = 1;';
+	#Swoofila Cutlery
+/*	foreach ($cutlery as $key => $value) {
+		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("Swoofila Cutlery - Bamboo Series '.$value.'", 2, "SC7'.$key.'0", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.strval(300-$key*12).', 0, 9, "'.upc().'", 1, 31, NOW());<br />';
+
+		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("Swoofila Cutlery - Blue Steel '.$value.'", 2, "SC5'.$key.'0", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.strval(350-$key*15).', 0, 9, "'.upc().'", 1, 16, NOW());<br />';
+	}
+
+*/
+	#category assignment
+	$q = 'SELECT product_id, name FROM  entity_products where manufacturer_id = 9 ';
 	$r= @mysqli_query ($dbc, $q);
 
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(19, '.$row['product_id'].');<br />';
+		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(9, '.$row['product_id'].');<br />';
+		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(10, '.$row['product_id'].');<br />';
+		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(24, '.$row['product_id'].');<br />';
 	}
 	mysqli_close($dbc);
 ?>
