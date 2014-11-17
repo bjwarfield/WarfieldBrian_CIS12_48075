@@ -1,24 +1,23 @@
 * {
-	border:0;
-	margin:0;
-	padding:0;
+	border: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* general */
 a {
-	color:#668;
-	text-decoration:none;
+	color: #668;
+	text-decoration: none;
 }
-
 a:hover {
-	color:#999;
-	text-decoration:none;
+	color: #999;
+	text-decoration: none;
 }
 
 /* body */
 body {
-	background:#ffffff;
-	color:#333;
+	background: #ffffff;
+	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
 	max-width: 800px;
 	margin-left: auto;
@@ -27,70 +26,91 @@ body {
 
 /* header */
 header {
-	border-bottom:2px solid #999;
-	height:80px;
-	margin:0 auto;
-	width:100%;
+	border-bottom: 2px solid #999;
+	height: 80px;
+	margin: 0 auto;
+	width: 100%;
 	max-width: 800px;
 }
 header h1 {
-	color:#888;
-	font-size:300%;
-	letter-spacing:-3px;
-	text-align:right;
-	padding:5px;
-	margin-bottom:-20px;
+	color: #888;
+	font-size: 300%;
+	letter-spacing: -3px;
+	text-align: right;
+	padding: 5px;
+	margin-bottom: -20px;
 }
 header h2 {
-	color:#CCC;
-	font-size:200%;
-	letter-spacing:-2px;
-	text-align:right;
+	color: #CCC;
+	font-size: 200%;
+	letter-spacing: -2px;
+	text-align: right;
 }
 
 /* navigation */
-nav ul {
-	padding: 0 20px;
-	list-style: none;
-	position: relative;
-	display: inline-table;
-	width: 100%;
-	border-bottom:2px solid #999;
-}
-
 nav ul ul {
 	display: none;
 }
-
 nav ul li:hover > ul {
 	display: block;
-	}
-
+	
+}
 nav ul {
 	padding: 0 20px;
 	list-style: none;
 	position: relative;
 	display: inline-table;
-	width: 95%;
 }
 nav ul:after {
-	content: ""; clear: both; display: block;
-	}
+	content: "";
+	clear: both;
+	display: block;
+}
 nav ul li {
 	float: left;
 }
 nav ul li:hover {
 	background: #333;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
 }
 nav ul li:hover a {
 	color: #fff;
 }
-	
 nav ul li a {
-	display: block; 
+	display: block;
 	padding: 10px 15px;
-	color: #757575; 
+	color: #757575;
 	text-decoration: none;
+}
+nav ul ul {
+	background: #5f6975;
+	padding: 0;
+	position: absolute;
+	top: 100%;
+	transition: height 0.5s ease;
+	-webkit-transition: height 0.5s ease;
+	-moz-transition: height 0.5s ease;
+	-o-transition: height 0.5s ease;
+}
+nav ul ul li {
+	float: none;
+	border-top: 1px solid #6b727c;
+	border-bottom: 1px solid #575f6a;
+	position: relative;
+}
+nav ul ul li a {
+	padding: 10px 15px;
+	color: #fff;
+}
+nav ul ul li a:hover {
+	background: #4b545f;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
 }
 nav ul ul ul {
 	position: absolute; left: 100%; top:0;
@@ -98,28 +118,28 @@ nav ul ul ul {
 
 /* content */
 #content {
-	height:auto;
-	margin:0 auto;
-	padding:0 0 20px;
-	width:751px;
+	height: auto;
+	margin: 0 auto;
+	padding: 0 0 20px;
+	width: 751px;
 }
 #content h1 {
-	border-bottom:1px dashed #999;
-	font-size:1.8em;
-	padding:20px 0 0;
+	border-bottom: 1px dashed #999;
+	font-size: 1.8em;
+	padding: 20px 0 0;
 }
 #content p {
-	padding:20px 20px 0;
+	padding: 20px 20px 0;
 }
 
 /* footer */
 #footer {
-	border-top:1px solid #999; 
-	height:50px;
-	margin:0 auto;
-	padding:10px;
-	text-align:center;
-	width:751px;
+	border-top: 1px solid #999;
+	height: 50px;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	width: 751px;
 }
 
 /* Added by Larry Ullman: */
@@ -127,12 +147,42 @@ nav ul ul ul {
 	font-weight: bold;
 	color: #C00
 }
-
 input, select, .input {
 	padding: 5px;
 	font-weight: bold;
 	font-size: 1em;
 	color: #008040;
 	background: #FFFFFF;
-	border:1px dotted #004080;
+	border: 1px dotted #004080;
+}
+
+.products_block{
+	border:1px solid black;
+	display:table;
+	width:100%;
+}
+.item_block{
+	display: table-row;
+	width: 100%;
+
+}
+.item_block:nth-child(even){
+	background-color: #EEE;
+}
+
+.product_thumbnail, .product_info, .price_block{
+	display: table-cell;
+	vertical-align: middle;
+	padding:5px;
+	
+}
+.price_block button{
+	background-color: #CCC;
+}
+.price_block button:hover{
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	background-color: #669;
 }
