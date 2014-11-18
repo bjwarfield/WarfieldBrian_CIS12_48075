@@ -9,7 +9,7 @@
 	}else{
 		$display = 10;
 	}
-	echo $display;
+
 	// Count how many products are in current category
 	 @require("project_DBconnect.php");
 	$q = 'SELECT count(product_id) FROM entity_products;';
@@ -175,7 +175,7 @@ echo '<table class="admin_product_list">
 	 	 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 	 		echo '
 	 		<tr>
-	 			<td><a href="admin_edit_item.php?product_id='.$row['product_id'].'">Edit</a></td>
+	 			<td><form action="admin_edit_item.php" method="post"><input type="hidden" name="product_id" value="'.$row['product_id'].'" ><input type="submit" value="Edit"></form></td>
 	 			<td>'.$row['name'].'</td>
 	 			<td>'.$row['sku'].'</td>
 	 			<td>'.$row['on_hand_qty'].'</td>

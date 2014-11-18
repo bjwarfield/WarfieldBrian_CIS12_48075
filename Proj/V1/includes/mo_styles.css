@@ -165,10 +165,11 @@ nav ul ul ul {
 .customer_list tbody td{
 	height:2em;
 }
-.customer_list tbody td input{
+.customer_list tbody td input, .admin_product_list tbody td input {
 	width: 100%;
+	height: 100%;
 }
-.customer_list tbody td input:hover{
+.customer_list tbody td input:hover, .admin_product_list tbody td input:hover{
 	background-color: #779;
 	color: #fff;
 }
