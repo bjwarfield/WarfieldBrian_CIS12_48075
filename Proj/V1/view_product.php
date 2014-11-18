@@ -23,6 +23,7 @@
 	 	echo '<p>Price: '.$row['price'].'</p>';
 	 	echo '<p>'.$row['long_description'].'</p>';
 	 	echo '<p>Made in: '.$row['country'].'</p>';
+	 	echo '<button style="button">Add to Cart</button>';
 	 		 } 
 	 echo '</div>';
 	mysqli_free_result ($r);

@@ -19,6 +19,7 @@ body {
 	background: #ffffff;
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
 	width: 800px;
 	margin-left: auto;
 	margin-right: auto;
@@ -147,8 +148,33 @@ nav ul ul ul {
 	float: right;
 	padding:6px 0;
 }
-.cat_heading{
+.cat_heading, .users_heading, .admin_product_list_heading{
 	float:left;
+}
+/*View Customers*/
+.customer_list, .admin_product_list{
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+	border: 1px solid #666;
+	clear:both;
+}
+.customer_list tbody tr:nth-child(odd), .admin_product_list tbody tr:nth-child(odd){
+	background-color: #eee;
+}
+.customer_list tbody td{
+	height:2em;
+}
+.customer_list tbody td input{
+	width: 100%;
+}
+.customer_list tbody td input:hover{
+	background-color: #779;
+	color: #fff;
+}
+.admin_product_list td, .admin_product_list th{
+	padding:3px 2px;
+	border-left:1px solid #999;
 }
 /* footer */
 #footer {
@@ -161,7 +187,10 @@ nav ul ul ul {
 }
 .page_selector{
 	text-align: center;
-	padding: 15px 20px;
+	padding: 10px 20px;
+	font-size: 110%;
+	font-weight: bold;
+	clear:both;
 }
 /* Added by Larry Ullman: */
 .error, .ad {
@@ -175,7 +204,7 @@ input, select, .input {
 	background: #FFFFFF;
 	border: 1px dashed #333;
 }
-
+/*Category View*/
 .products_block{
 	border:1px solid black;
 	display:table;
@@ -206,6 +235,7 @@ input, select, .input {
 	-o-transition: all 0.5s ease;
 	background-color: #669;
 }
+/*footer*/
 footer{
 	text-align: center;
 	vertical-align: middle;

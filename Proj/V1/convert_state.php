@@ -70,4 +70,9 @@
 	}
 	return $return;
 }
+function out_obj($obj){
+	echo '<pre>';
+	print_r($obj);
+	echo '</pre>';
+}
 ?>
