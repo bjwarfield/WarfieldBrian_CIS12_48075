@@ -1,7 +1,7 @@
 <?php 
 
 $page_title = 'View Registered Customers';
-include ('includes/header.html');
+include('includes/admin.html'); 
 include ('convert_state.php');
 
 echo '<h1 class="users_heading">Registered Users</h1>';

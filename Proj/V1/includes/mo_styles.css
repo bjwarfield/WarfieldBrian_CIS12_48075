@@ -165,7 +165,7 @@ nav ul ul ul {
 .customer_list tbody td{
 	height:2em;
 }
-.customer_list tbody td input, .admin_product_list tbody td input {
+.customer_list tbody td input, .admin_product_list tbody td form input, .admin_product_list tbody td form {
 	width: 100%;
 	height: 100%;
 }
@@ -173,7 +173,7 @@ nav ul ul ul {
 	background-color: #779;
 	color: #fff;
 }
-.admin_product_list td, .admin_product_list th{
+.admin_product_list td:not(.action_column), .admin_product_list th{
 	padding:3px 2px;
 	border-left:1px solid #999;
 }
@@ -198,7 +198,7 @@ nav ul ul ul {
 	font-weight: bold;
 	color: #C00
 }
-input, select, .input {
+input, select, .input, textarea {
 	padding: 2px;
 	font-size: 1em;
 	color: #555;

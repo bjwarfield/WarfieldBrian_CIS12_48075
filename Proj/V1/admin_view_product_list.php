@@ -1,6 +1,6 @@
 <?php 
 	$page_title = 'Product List Administration';//name page
-	 include('includes/header.html'); 
+	 include('includes/admin.html'); 
 
 
 	//check $_GET for validity, set defaul if not 
@@ -116,25 +116,17 @@
 			echo '</div>'; // Close the div.
 		}
 	}	
-
-	//Query for products within the qualified range
-	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`on_hand_qty`, `entity_products`.`price`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`shipping_weight`, `enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM `bladeshop`.`entity_products` AS `entity_products`, `bladeshop`.`enum_country` AS `enum_country`, `bladeshop`.`entity_atribute_set` AS `entity_atribute_set`, `bladeshop`.`enum_manufacturer` AS `enum_manufacturer` WHERE `entity_products`.`country_id` = `enum_country`.`country_id` AND `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` AND `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
-
-	 $r = mysqli_query($dbc, $q);
-/*	 echo '<pre>';
-	 print_r($r);
-	 echo '</pre>';*/
-
+	#create pagination options
 	 echo '<form class="paginator" action="admin_view_product_list.php" method="get">
 	 			<label>Sort</label>
 	 			<select name="sort">
 	 				<option value="namea" '.(($sort=="namea")?'selected="selected"':'').'>Name, [A-Z]</option>
 	 				<option value="named" '.(($sort=="named")?'selected="selected"':'').'>Name, [Z-A]</option>
-	 				<option value="pricea" '.(($sort=="pricea")?'selected="selected"':'').'">Price, Lowest First</option>
-	 				<option value="priced" '.(($sort=="priced")?'selected="selected"':'').'">Price, Highest First</option>
+	 				<option value="pricea" '.(($sort=="pricea")?'selected="selected"':'').'>Price, Lowest First</option>
+	 				<option value="priced" '.(($sort=="priced")?'selected="selected"':'').'>Price, Highest First</option>
 	 				<option value="skua" '.(($sort=="skua")?'selected="selected"':'').'>SKU [A-Z]</option>
 	 				<option value="skud" '.(($sort=="skud")?'selected="selected"':'').'>SKU [Z-A]</option>
-	 				<option value="qtya" '.(($sort=="qtya")?'selected="selected"':'').'">Quantity, Least First</option>
+	 				<option value="qtya" '.(($sort=="qtya")?'selected="selected"':'').'>Quantity, Least First</option>
 	 				<option value="qtyd" '.(($sort=="qtyd")?'selected="selected"':'').'>Quantity, Most First</option>
 				</select>
 				<label>Display</label>
@@ -154,14 +146,22 @@
  				<input name="s" type="hidden" value="'.$start.'">
 			</form>';
 
-	// Table header:
+	#Query for products within the qualified range
+	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`on_hand_qty`, `entity_products`.`price`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`shipping_weight`, `enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM { OJ `bladeshop`.`entity_products` AS `entity_products` LEFT OUTER JOIN `bladeshop`.`enum_country` AS `enum_country` ON `entity_products`.`country_id` = `enum_country`.`country_id` LEFT OUTER JOIN `bladeshop`.`enum_manufacturer` AS `enum_manufacturer` ON `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` }, `bladeshop`.`entity_atribute_set` AS `entity_atribute_set` WHERE `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+	//echo $q;
+	 $r = mysqli_query($dbc, $q);
+/*	 echo '<pre>';
+	 print_r($r);
+	 echo '</pre>';*/
+
+	# Table header:
 echo '<table class="admin_product_list">
 	<thead>
 	<tr>
 		<th>Action</th>
 		<th>Name</th>
 		<th>SKU</th>
-		<th>On Hand Qty</th>
+		<th>Qty</th>
 		<th>Price</th>
 		<th>Manufacturer</th>
 		<th>Country</th>
@@ -175,7 +175,7 @@ echo '<table class="admin_product_list">
 	 	 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 	 		echo '
 	 		<tr>
-	 			<td><form action="admin_edit_item.php" method="post"><input type="hidden" name="product_id" value="'.$row['product_id'].'" ><input type="submit" value="Edit"></form></td>
+	 			<td class="action_column"><form action="admin_edit_item.php" method="post"><input type="hidden" name="product_id" value="'.$row['product_id'].'" ><input type="submit" value="Edit"></form></td>
 	 			<td>'.$row['name'].'</td>
 	 			<td>'.$row['sku'].'</td>
 	 			<td>'.$row['on_hand_qty'].'</td>
