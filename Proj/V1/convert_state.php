@@ -1,8 +1,7 @@
 <?php
 	function convert_state($name, $to='name') {
 	$states = array(
-	array('name'=>
-'Alabama', 'abbrev'=>'AL'),
+	array('name'=>'Alabama', 'abbrev'=>'AL'),
 	array('name'=>'Alaska', 'abbrev'=>'AK'),
 	array('name'=>'Arizona', 'abbrev'=>'AZ'),
 	array('name'=>'Arkansas', 'abbrev'=>'AR'),
@@ -70,9 +69,5 @@
 	}
 	return $return;
 }
-function out_obj($obj){
-	echo '<pre>';
-	print_r($obj);
-	echo '</pre>';
-}
+
 ?>

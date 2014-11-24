@@ -26,6 +26,7 @@
 		$data[$category_id] = $row;
 		$index[$parent_category_id][] = $category_id;
 	}
+	$r->free();
 /*		echo"<pre>
 		Data:\n";
 		print_r($data);

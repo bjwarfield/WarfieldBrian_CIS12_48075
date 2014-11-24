@@ -2,18 +2,22 @@
 	$page_title = 'Product Administration';
 	include('includes/admin.html'); 
 	include('convert_state.php');
-	// out_obj($_POST);
+	//out_obj($_POST);
 	#validate product ID, exit if invalid
-	if($_SERVER['REQUEST_METHOD']=='POST' && !isset($_POST_["edit"])){
+	if($_SERVER['REQUEST_METHOD']=='POST' && !isset($_POST_["product_id"])){
 		if(isset($_POST['product_id']) && is_numeric($_POST['product_id'] )){
 			$pro_id=$_POST['product_id'];
 			@require("project_DBconnect.php");
 		}else{
-		 	echo '<h1 class="error">ERROR!</h1><p>This page has been reached in error. <a href="index.php">Please try again</a></p>';
+		 	echo '<h1 class="error">ERROR!</h1><p>This page has been reached in error. <a href="admin_index.php">Please try again</a></p>';
 		 	include('includes/footer.html');
 		 	exit();
 		}
-	}
+	}else{
+		 	echo '<h1 class="error">ERROR!</h1><p>This page has been reached in error. <a href="admin_index.php">Please try again</a></p>';
+		 	include('includes/footer.html');
+		 	exit();
+		 }
 
 	#validate posted form values
 	if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST["edit"])){
@@ -188,8 +192,10 @@
 		<input type="hidden" name="product_id" value="'.$pro_id.'">
 	 ';
 	 	
-	 echo '</form>';
-	mysqli_close($dbc);
+	 echo '</form>';#end edit_item form
+
+	 
+	@mysqli_close($dbc);
 	include ('includes/footer.html');
 
 ?>

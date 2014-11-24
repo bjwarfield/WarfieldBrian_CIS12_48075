@@ -177,6 +177,19 @@ nav ul ul ul {
 	padding:3px 2px;
 	border-left:1px solid #999;
 }
+/*Edit Customers*/
+form input + label{
+	padding-left: 15px;
+}
+form input:disabled{
+	background-color: #DDD;
+	color: #888;
+}
+form input[type="submit"]:disabled{
+	background-color: #999;
+	color: #BBB;
+	border:1px solid red;
+}
 /* footer */
 #footer {
 	border-top: 1px solid #999;

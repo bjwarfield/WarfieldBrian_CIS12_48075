@@ -111,7 +111,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td><form action="admin_edit_customer.php" method="post"><input type="hidden" name="customer_id" value="'.$row['customer_id'].'" ><input type="submit" value="Edit"></form></td>
 		<td>'.$row['last_name'].'</td>
 		<td>'.$row['first_name'].'</td>
-		<td>'.substr($row['phone_1'],0,3).'-'.substr($row['phone_1'],3,3).'-'.substr($row['phone_1'],6,4).'</td>
+		<td>('.substr($row['phone_1'],0,3).')'.substr($row['phone_1'],3,3).'-'.substr($row['phone_1'],6,4).'</td>
 		<td>'.convert_state($row['state']).'</td>
 		<td>'.$row['zip_code'].'</td>
 		<td>'.$row['registration_date'].'</td>
