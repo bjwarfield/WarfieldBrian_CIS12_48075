@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	$page_title = 'View Product';
 	 include('includes/header.html'); 
 	 	if(isset($_GET['product_id']) && is_numeric($_GET['product_id'] )){

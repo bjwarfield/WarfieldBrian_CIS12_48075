@@ -16,6 +16,7 @@
 	//Get DB COnnection
 	@require("project_DBconnect.php");
 	include('debug.php');
+	// out_obj($_SERVER);
 	out_obj($_SESSION);
 	//Query DB for Category Data
 	$q = 'SELECT category_id, parent_category_id, name FROM entity_categories WHERE is_active = TRUE ORDER BY parent_category_id, position;';

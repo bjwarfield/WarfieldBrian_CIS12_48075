@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 $page_title = 'Register New User';
 include ('includes/header.html');
 include('debug.php');

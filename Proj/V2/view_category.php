@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	$page_title = 'View Category';//name page
 	 include('includes/header.html'); 
 	 // echo '<pre>';
