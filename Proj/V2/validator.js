@@ -1,6 +1,6 @@
 window.onload = function(){
 	//collect all Form inputs
-	inputs = document.forms[0].getElementsByTagName("input");
+	inputs = document.forms[0].querySelectorAll("input,textarea");
 	// console.log(inputs);
 
 	//loop through collected input fields
@@ -31,15 +31,18 @@ window.onload = function(){
 
 //validate required fields
 function required(item){
+	
 	item.addEventListener("blur", function(event){//on field blur event
-		//console.log(event);
+		
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}//Select the following Label Node(to allow for whitespace)
+
 		if(event.target.value === ""){//if field is empty
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "This is a Required Field";//display error message next to field
-			document.forms[0].submit.disabled = 1;//disable submit button
+			
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";//display error message next to field
 		}else{//if field is not empty
-		event.target.nextSibling.innerHTML = "";//clear error message
-		document.forms[0].submit.disabled = 0;//enable submit
+		errorNode.innerHTML = "";//clear error message
 		}
 	});
 }
@@ -49,17 +52,19 @@ function email(item){
 	item.addEventListener("blur", function(event){
 		//console.log("foo");
 		var re = new RegExp(event.target.pattern);//collect RegExp pattern from input attributes
+		
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+		
 		if(event.target.value === ""){
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "This is a Required Field";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
 		}else if(!re.test(event.target.value)){//validate with RegExp
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "Please enter a valid email (name@site.domain)";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Please enter a valid email (name@site.domain)";
 		}else{
-			event.target.nextSibling.innerHTML = "";
-			document.forms[0].submit.disabled = 0;
+			errorNode.innerHTML = "";
 		}				
 	});	
 }
@@ -82,19 +87,19 @@ function phoneMask(item){
 		},75);//75ms delay
 	});
 	item.addEventListener("blur", function(event){
-		//console.log("foo");
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+
 		var re = new RegExp(event.target.pattern);
 		if(event.target.value === "" && event.target.name === "phone_1"){
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "This is a Required Field";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
 		}else if(!re.test(event.target.value)){
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "Please enter 10-Digit Phone Number";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Please enter 10-Digit Phone Number";
 		}else{
-			document.forms[0].submit.disabled = 0;
-			event.target.nextSibling.innerHTML = "";
+			errorNode.innerHTML = "";
 		}				
 	});	
 } 
@@ -113,19 +118,20 @@ function zipMask(item){
 		},75);
 	});
 	item.addEventListener("blur", function(event){
-		//console.log("foo");
+		
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+
 		var re = new RegExp(event.target.pattern);
 		if(event.target.value === ""){
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "This is a Required Field";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
 		}else if(!re.test(event.target.value)){
-			event.target.nextSibling.classList.add("error");
-			event.target.nextSibling.innerHTML = "Please enter a 5 or 9 Digit Zip Code";
-			document.forms[0].submit.disabled = 1;
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Please enter a 5 or 9 Digit Zip Code";
 		}else{
-			document.forms[0].submit.disabled = 0;
-			event.target.nextSibling.innerHTML = "";
+			errorNode.innerHTML = "";
 		}				
 	});	
 }
@@ -133,16 +139,19 @@ function zipMask(item){
 //Verify password field matches
 function passCheck(item){
 	item.addEventListener("input", function(event){
+
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+
 		setTimeout(function(){
 			var pass1 = document.forms[0].elements.pass1.value;
 			var pass2 = event.target.value;
 			if(pass1 != pass2){
-				event.target.nextSibling.classList.add("error");
-				event.target.nextSibling.innerHTML = "Password Fields must match";
-				document.forms[0].submit.disabled = 1;
+				errorNode.classList.add("error");
+				errorNode.innerHTML = "Password Fields must match";
 			}else{
-				document.forms[0].submit.disabled = 0;
-				event.target.nextSibling.innerHTML = "";
+				errorNode.innerHTML = "";
 			}	
 		},200);//200ms delay
 	});

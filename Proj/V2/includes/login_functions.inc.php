@@ -31,7 +31,7 @@ function redirect_user ($page = 'index.php') {
  * - a TRUE/FALSE variable indicating success
  * - an array of either errors or the database result
  */
-function check_login($dbc, $email = '', $pass = '') {
+function check_login($dbc, $email = '', $pass = '', $admin = false) {
 
 	$errors = array(); // Initialize error array.
 
@@ -50,11 +50,15 @@ function check_login($dbc, $email = '', $pass = '') {
 	}
 
 	if (empty($errors)) { // If everything's OK.
-
-		// Retrieve the customer information for that email/password combination:
-		$q = "SELECT customer_id, first_name, last_name FROM entity_customers WHERE email='$e' AND pass=SHA1('$p')";		
+		if($admin == true){
+			// Retrieve the Administrator information for that email/password combination:
+			$q = "SELECT admin_id, first_name, last_name FROM entity_administrators WHERE email='$e' AND pass=SHA1('$p') AND active = TRUE";		
+		}else{
+			// Retrieve the customer information for that email/password combination:
+			$q = "SELECT customer_id, first_name, last_name FROM entity_customers WHERE email='$e' AND pass=SHA1('$p')";		
+		}
 		$r = @mysqli_query ($dbc, $q); // Run the query.
-		
+
 		// Check the result:
 		if (mysqli_num_rows($r) == 1) {
 

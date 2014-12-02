@@ -1,4 +1,6 @@
 <?php 
+	session_name('PHPADMINID');
+	session_start();
 	$page_title = 'Product List Administration';//name page
 	 include('includes/admin.html'); 
 

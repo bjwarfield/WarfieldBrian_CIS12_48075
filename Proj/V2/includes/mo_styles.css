@@ -51,45 +51,41 @@ header h2 {
 .user_bar{
 	background-color: #ddd;
 	color: #333;
-	padding: 5px 20px;
-}
-/* navigation */
-.navbar{
-	background-color: #eee;
-	border-bottom: 2px solid #999;	
-}
-nav ul ul {
+	text-align: right;
+	}
+.user_bar ul ul {
 	display: none;
 }
-nav ul li:hover > ul {
+.user_bar ul li:hover > ul {
 	display: block;
 
 }
-nav ul {
+.user_bar ul {
 	padding: 0;
 	list-style: none;
 	position: relative;
 	display: inline-table;
+	text-align: center;
 }
-nav ul:after {
+.user_bar ul:after {
 	content: "";
 	clear: both;
 	display: block;
 }
-nav ul li {
+.user_bar ul li {
 	float: left;
 }
-nav ul li:hover {
+.user_bar ul li:hover {
 	background: #333;
 	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 }
-nav ul li:hover a {
+.user_bar ul li:hover a {
 	color: #fff;
 }
-nav ul li a {
+.user_bar ul li a {
 	display: block;
 	padding: 10px 20px;
 	height: 100%;
@@ -97,7 +93,7 @@ nav ul li a {
 	text-decoration: none;
 	vertical-align: middle;
 }
-nav ul ul {
+.user_bar ul ul {
 	background: #5f6975;
 	padding: 0;
 	position: absolute;
@@ -107,24 +103,99 @@ nav ul ul {
 	-moz-transition: height 0.5s ease;
 	-o-transition: height 0.5s ease;
 }
-nav ul ul li {
+.user_bar ul ul li {
 	float: none;
 	position: relative;
 	border-top:1px solid #999;
 	border-bottom:1px solid #555;
 }
-nav ul ul li a {
+.user_bar ul ul li a {
 	padding: 10px 10px;
 	color: #fff;
 }
-nav ul ul li a:hover {
+.user_bar ul ul li a:hover {
 	background: #4b545f;
 	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 }
-nav ul ul ul {
+.user_bar ul ul ul {
+	position: absolute; left: 100%; top:0;
+}
+
+/* navigation */
+.navbar{
+	background-color: #eee;
+	border-bottom: 2px solid #999;	
+}
+.navbar ul ul {
+	display: none;
+}
+.navbar ul li:hover > ul {
+	display: block;
+
+}
+.navbar ul {
+	padding: 0;
+	list-style: none;
+	position: relative;
+	display: inline-table;
+}
+.navbar ul:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+.navbar ul li {
+	float: left;
+}
+.navbar ul li:hover {
+	background: #333;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+.navbar ul li:hover a {
+	color: #fff;
+}
+.navbar ul li a {
+	display: block;
+	padding: 10px 20px;
+	height: 100%;
+	color: #757575;
+	text-decoration: none;
+	vertical-align: middle;
+}
+.navbar ul ul {
+	background: #5f6975;
+	padding: 0;
+	position: absolute;
+	top: 100%;
+	transition: height 0.5s ease;
+	-webkit-transition: height 0.5s ease;
+	-moz-transition: height 0.5s ease;
+	-o-transition: height 0.5s ease;
+}
+.navbar ul ul li {
+	float: none;
+	position: relative;
+	border-top:1px solid #999;
+	border-bottom:1px solid #555;
+}
+.navbar ul ul li a {
+	padding: 10px 10px;
+	color: #fff;
+}
+.navbar ul ul li a:hover {
+	background: #4b545f;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+.navbar ul ul ul {
 	position: absolute; left: 100%; top:0;
 }
 /*breadcrumbs*/

@@ -1,16 +1,17 @@
 <?php 
-session_name('PHPADMINID');
-session_start();
-
+session_start(); // Access the existing session.
 $page_title = 'Edit User';
-include ('includes/admin.html');//admin header
-include('debug.php');//debug scripts
+include ('includes/header.html');//admin header
+//include('debug.php');//debug scripts
 
 #Check for Cust ID
-if((isset($_POST['customer_id'])) && (is_numeric($_POST['customer_id']))){
-	$customer_id = $_POST['customer_id'];
+if((isset($_SESSION['customer_id'])) && (is_numeric($_SESSION['customer_id']))){
+	$customer_id = $_SESSION['customer_id'];
 }else{
-	echo '<p class="error">This page has been accessed in error.</p>';
+	echo '<p class="error">This page has been accessed in error.</p>
+	<p>You will be <a href="index.php">redirected</a> to the homepage in 5 secs.</p>';
+	header( "refresh:5;url=index.php" ); 
+
 	include ('includes/footer.html'); 
 	exit();
 }
@@ -60,7 +61,6 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 			$errors[]= "Please inter a Valid Email Address (name@user.domain)";
 		}
 	}
-	
 	// Check for Company
 	if (empty($_POST['company'])) {
 	} else {
@@ -124,13 +124,12 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 			$errors[] = "Please enter valid 10 digit Secondary Phone Number";
 		}
 	}	
-	$csid = mysqli_real_escape_string($dbc, trim($_POST['customer_status_id']));
 	if (empty($errors)) { // If everything's OK.
 	
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "UPDATE entity_customers SET `first_name` = '$fn', `last_name` = '$ln', `email` =  '$e', `company` = '$co', `address_1` = '$ad1', `address_2` = '$ad2' , `city` = '$city', `state` = '$state', `zip_code` = '$zip', `phone_1` = '$p1', `phone_2` = '$p2', `customer_status_id`= $csid WHERE `entity_customers`.`customer_id` = $customer_id;";	
+		$q = "UPDATE entity_customers SET `first_name` = '$fn', `last_name` = '$ln', `email` =  '$e', `company` = '$co', `address_1` = '$ad1', `address_2` = '$ad2' , `city` = '$city', `state` = '$state', `zip_code` = '$zip', `phone_1` = '$p1', `phone_2` = '$p2' WHERE `entity_customers`.`customer_id` = $customer_id;";	
 		
 		//out_var($q);
 		$r = @mysqli_query ($dbc, $q); // Run the query.
@@ -138,9 +137,11 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 		
 			// Print a message:
 			echo "<h1>Confirmed</h1>
-			<p>Customer <strong>$fn $ln</strong> sucessfully Updated</p>
-			<p>You will be <a href='admin_view_customers.php'>redirected</a> in 5 secs.</p>";
-			header( "refresh:5;url=admin_view_customers.php" ); 
+			<p>Customer <strong>".stripcslashes($fn)." ".stripcslashes($ln)."</strong> sucessfully Updated</p>
+			<p><a href='edit_customer.php'>Reloading</a> in 5 secs.</p>";
+			header( "refresh:5;url=edit_customer.php" ); 
+			include('includes/footer.html');
+			exit();
 		
 		} else { // If it did not run OK.
 			
@@ -174,16 +175,6 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 
 }
 
-#get enumerated list of Status IDs
-$q = 'SELECT * FROM `bladeshop`.`enum_customer_status` AS `enum_customer_status`';
-$r = @mysqli_query($dbc, $q);
-$enum_status = array();
-while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
-	$enum_status[$row['customer_status_id']]=$row['customer_status'];
-}	 
-if(is_object($r))$r->free();#Free query result
-
-
 $q = "SELECT * FROM `entity_customers` WHERE `customer_id` = $customer_id;";
 $r = @mysqli_query($dbc, $q);
 
@@ -193,7 +184,7 @@ if ($r->num_rows == 1){
 	#Output Form
 	echo '
 	<h1>Edit Customer Info</h1>
-	<form name="admin_edit_customer" action="admin_edit_customer.php" method="post">
+	<form name="admin_edit_customer" action="edit_customer.php" method="post">
 		<p> First Name: <input type="text" name="first_name" id="first_name" required="required" size="30" maxlength="25" value="'.$row['first_name'].'" /><label for="first_name"></label></p><br/>
 		<p> Last Name: <input type="text" name="last_name" id="last_name" required="required" size="45" maxlength="40" value="'.$row['last_name'].'" /><label for="last_name"></label></p><br/> 
 		<p> Company: <input type="text" name="company" size="50" maxlength="45" value="'.$row['company'].'"  /><label for="company"></label></p><br/>
@@ -256,23 +247,18 @@ if ($r->num_rows == 1){
 		</select>
 	</p><br/>
 	<p> ZIP Code: <input type="text" name="zip_code" id="zip_code" required="required" pattern="^\d{5}(?:-\d{4})?$" size="15" maxlength="10" value="'.(strlen($row['zip_code'])==9?substr($row['zip_code'],0,5).'-'.substr($row['zip_code'],5,4):$row['zip_code']).'"  /><label for="first_name"></label></p><br/>
-	<p> Sequrity Question: <input type="text" name="security_question" id="security_question" required="required" size="50" maxlength="45" value="'.$row['security_question'].'"  disabled/><label for="first_name"></label></p><br/>
-	<p> Sequrity Answer: <input type="text" name="security_answer" id="security_answer" required="required" size="50" maxlength="45" value="'.$row['security_answer'].'"  disabled/><label for="first_name"></label></p><br/>
+	<p> Sequrity Question: <input type="text" name="security_question" id="security_question" required="required" size="50" maxlength="45" value="'.$row['security_question'].'"  /><label for="first_name"></label></p><br/>
+	<p> Sequrity Answer: <input type="text" name="security_answer" id="security_answer" required="required" size="50" maxlength="45" value="'.$row['security_answer'].'"  /><label for="first_name"></label></p><br/>
 	<p> Primary Phone: <input type="text" name="phone_1" id="phone_1" required="required" pattern="^\(\d{3}\)\d{3}-\d{4}$" size="15" maxlength="15" value="('.substr($row['phone_1'],0,3).')'.substr($row['phone_1'],3,3).'-'.substr($row['phone_1'],6,4).'"  /><label for="first_name"></label></p><br/>
 	<p> Secondary Phone: <input type="text" name="phone_2" id="phone_2" pattern="^\(\d{3}\)\d{3}-\d{4}$|^$" size="15" maxlength="15" value="'.(strlen($row['phone_2'])==10?'('.substr($row['phone_2'],0,3).')'.substr($row['phone_2'],3,3).'-'.substr($row['phone_2'],6,4):'').'"  /><label for="first_name"></label></p><br/>
-		<p> Customer Status <select name="customer_status_id" id="customer_status_id">';
-			foreach ($enum_status as $key => $value) {
-			echo '<option value="'.$key.'" '.($row['customer_status_id']==$key?'selected':'').'>'.$value.'</option>';
-		}
-		echo'
-		</select>	
-		<br /><br />
 	<p> <input type="submit" name="submit" value="Save Changes" /> </p><br/>
 	<input type = "hidden" name="customer_id" value="'.$customer_id.'" />
 	<input type = "hidden" name="edit" value="1" />
 </form>';
 }else { // Not a valid user ID.
-	echo '<p class="error">This page has been accessed in error.</p>';
+	echo '<p class="error">This page has been accessed in error.</p>
+	<p>You will be <a href="index.php">redirected</a> to the homepage in 5 secs.</p>';
+	header( "refresh:5;url=index.php" ); 
 }
 
 mysqli_close($dbc);

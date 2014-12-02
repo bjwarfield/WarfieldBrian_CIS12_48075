@@ -18,7 +18,8 @@ include ('includes/header.html');
 // Print a customized message:
 echo "<h1>Logged In!</h1>
 <p>You are now logged in, {$_SESSION['first_name']}!</p>
-<p><a href=\"logout.php\">Logout</a></p>";
+<p>You will be <a href='index.php'>redirected</a> to the homepage in 5 secs.</p>";
+header( "refresh:5;url=index.php" ); 
 
 include ('includes/footer.html');
 ?>

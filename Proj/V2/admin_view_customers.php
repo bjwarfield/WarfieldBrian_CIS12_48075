@@ -1,4 +1,6 @@
 <?php 
+session_name('PHPADMINID');
+session_start();
 
 $page_title = 'View Registered Customers';
 include('includes/admin.html'); 

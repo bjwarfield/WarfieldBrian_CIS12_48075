@@ -180,8 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <p> Last Name: <input type="text" name="last_name" id="last_name" required="required" size="45" maxlength="40" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>" /><label></label></p><br/> 
 <p> Company: <input type="text" name="company" id="company" size="50" maxlength="45" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>"  /><label></label></p><br/>
 <p> Email Address: <input type="text" name="email" id="email" required="required" pattern="\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b" size="45" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /><label></label></p><br/>
-<p> Password: <input type="password" name="pass1" id="pass1" required="required" size="25" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /><label></label></p><br/>
-<p> Confirm Password: <input type="password" name="pass2" id="pass2" required="required" size="25" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /><label></label></p><br/>
+<p> Password: <input type="password" name="pass1" id="pass1" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
+<p> Confirm Password: <input type="password" name="pass2" id="pass2" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
 <p> Address 1: <input type="text" name="address_1" id="address_1" required="required" size="50" maxlength="45" value="<?php if (isset($_POST['address_1'])) echo $_POST['address_1']; ?>"  /><label></label></p><br/>
 <p> Address 2: <input type="text" name="address_2" id="address_2" size="50" maxlength="45" value="<?php if (isset($_POST['address_2'])) echo $_POST['address_2']; ?>"  /><label></label></p><br/>
 <p> City: <input type="text" name="city" id="city" size="30" required="required" maxlength="52" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>"  /><label></label></p><br/>

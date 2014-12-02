@@ -1,4 +1,6 @@
-<?php $page_title = 'Home Page'; include('includes/header.html'); ?>
+<?php $page_title = 'Home Page'; 
+session_start(); // Access the existing session.
+include('includes/header.html'); ?>
 	<h1>Welcome to the Blade Shop</h1>
 	<p> Bacon ipsum dolor amet enim frankfurter non exercitation. Leberkas minim elit frankfurter, fatback strip steak ball tip jowl aliqua flank ham hock pork. Cow minim qui sirloin alcatra adipisicing. Consectetur pancetta drumstick kielbasa t-bone cillum aliqua duis et laboris lorem in tail meatloaf. </p>
 	<h2>We got what you need</h2>
