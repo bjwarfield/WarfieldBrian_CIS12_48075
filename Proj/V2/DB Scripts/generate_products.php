@@ -7,7 +7,7 @@
 <body>
 <?php
 	include("word_generator.php");
-	@require("project_DBconnect.php");
+	@require("../project_DBconnect.php");
 	//INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) 
 	$desc = bacon_ipsum(2);
 	$s_desc = substr($desc,0,120);

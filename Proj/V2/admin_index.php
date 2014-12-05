@@ -49,7 +49,7 @@ if (isset($errors) && !empty($errors)) {
 }
 
 ?>
-<script type="text/javascript" src="validator.js"></script>
+<script type="text/javascript" src="includes/validator.js"></script>
 <div style="display:<?php echo (isset($_SESSION['admin_id'])? 'none':'block') ?>;">
 	<h1>Administrator Login</h1><br />
 	<form action="admin_index.php" method="post">

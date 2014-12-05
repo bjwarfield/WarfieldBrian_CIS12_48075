@@ -44,7 +44,7 @@
 		return $list[mt_rand(0,$i-1)];
 	}
 
-	function rand_blade(){//returns Random blade
+	function rand_blade(){//returns Random blade type
 		$list = array ('blade', 'broadsword', 'claymore', 'dao', 'gladius', 'katana', 'longsword', 'odachi', 'rapier', 'sabre', 'shortsword', 'sword', 'wakazashi');
 		$i = count($list);
 		return $list[mt_rand(0,$i-1)];
@@ -54,10 +54,8 @@
 
 		for ($i = 1; $i < 12; $i++) {
 			$digits[$i] = rand(0,9);
-			if($i % 2 == 0)
-			$even_sum += $digits[$i];
-			else
-			$odd_sum += $digits[$i];
+			if($i % 2 == 0) $even_sum += $digits[$i];
+			else $odd_sum += $digits[$i];
 		}
 		$digits[$i] = 10 - ((3 * $odd_sum + $even_sum) % 10);
 		return implode('',$digits);

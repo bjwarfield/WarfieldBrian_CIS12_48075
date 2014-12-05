@@ -1,4 +1,5 @@
 <?php
+	//get state name from abreviation and vice versa
 	function convert_state($name, $to='name') {
 	$states = array(
 	array('name'=>'Alabama', 'abbrev'=>'AL'),
@@ -55,19 +56,19 @@
 
 	$return = false;
 	foreach ($states as $state) {
-		if ($to == 'name') {
+		if ($to == 'name') {//concert to name
 			if (strtolower($state['abbrev']) == strtolower($name)){
 				$return = $state['name'];
 				break;
 			}
-		} else if ($to == 'abbrev') {
+		} else if ($to == 'abbrev') {//convert to abbrev
 			if (strtolower($state['name']) == strtolower($name)){
 				$return = strtoupper($state['abbrev']);
 				break;
 			}
 		}
 	}
-	return $return;
+	return $return;//return false if no match, otherwise return conversion results
 }
 
 ?>

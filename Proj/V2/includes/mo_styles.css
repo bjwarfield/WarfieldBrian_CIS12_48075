@@ -1,9 +1,27 @@
-* {
-	border: 0;
-	margin: 0;
-	padding: 0;
+/*reset*/
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, em, img, small, strike, strong, sub, sup, b, dl, dt, dd, ol, ul, li,
+fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, footer, header, hgroup,
+menu, nav, output, section {
+margin: 0;
+padding: 0;
+border: 0;
+font: inherit;
+vertical-align: baseline;
 }
-
+h1, h2, h3, strong{
+	font-weight: bold;
+}
+h1{
+	font-size: 175%
+}
+h2{
+	font-size: 150%
+}
+h3{
+	font-size: 120%
+}
 /* general */
 a {
 	color: #339;
@@ -52,12 +70,14 @@ header h2 {
 	background-color: #ddd;
 	color: #333;
 	text-align: right;
+	z-index: 1;
 	}
 .user_bar ul ul {
 	display: none;
 }
 .user_bar ul li:hover > ul {
 	display: block;
+	z-index: 2;
 
 }
 .user_bar ul {
@@ -75,8 +95,8 @@ header h2 {
 .user_bar ul li {
 	float: left;
 }
-.user_bar ul li:hover {
-	background: #333;
+.user_bar ul li:hover, #shopping_cart:hover {
+	background-color: #333;
 	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -122,6 +142,10 @@ header h2 {
 }
 .user_bar ul ul ul {
 	position: absolute; left: 100%; top:0;
+}
+#shopping_cart{
+	background: url('../img/cart.png') no-repeat scroll 10px 50% transparent;
+	padding-left: 35px;
 }
 
 /* navigation */
@@ -315,15 +339,21 @@ input, select, .input, textarea {
 	padding:5px;
 	
 }
-.price_block button{
+.item_detail button{
+	padding: 4px;
+}
+.price_block button, .item_detail button{
 	background-color: #CCC;
 }
-.price_block button:hover{
+.price_block button:hover, .item_detail button:hover{
 	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	background-color: #669;
+}
+.item_detail p{
+	margin: 15px;
 }
 /*footer*/
 footer{
@@ -333,4 +363,5 @@ footer{
 	padding:10px 0;
 	width: 800px;
 	background-color: #ccc;
+	clear:both;
 }

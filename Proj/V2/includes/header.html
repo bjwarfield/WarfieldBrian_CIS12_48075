@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>The Bladeshop - <?php echo $page_title ?> </title>
 	<link rel="stylesheet" type="text/css" href="includes/mo_styles.css">
+	<script type="text/javascript" src="includes/shopping_cart.js"></script>
 </head>
 	<header>
 		<h1>The Blade Shop</h1>
@@ -15,7 +16,7 @@
 echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 '<h3>Welcome '.$_SESSION['first_name'].' '.$_SESSION['last_name'].'</h3>
 <ul>
-	<li id="shopping_cart"><a href="cart.php"><span>0</span> Shopping Cart</a></li>
+	<li id="shopping_cart"><a href="view_cart.php"><span id="cart_qty">0</span> items - <span id="total">$0.00</span></a><ul></ul></li>
 	<li>
 		<a href="account.php">Your Account</a>
 		<ul>
@@ -34,7 +35,10 @@ echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 		</ul>
 	</li>
 </ul>'#output logged in options
-: '<ul><li><a href="login.php">Login</a></li></ul>';#else, provide login link
+: '<ul>
+<li id="shopping_cart"><a href="view_cart.php"><span id="cart_qty">0</span> items - <span id="total">$0.00</span></a><ul></ul></li>
+		<li><a href="login.php">Login</a></li>
+	</ul>';#else, provide login link
 	 ?>
 	 </nav>
 	<?php
@@ -74,7 +78,7 @@ echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 
 	echo '<nav class="navbar"> ';
 	output_cats();//build navbar 
-	echo"</nav> ";
+	echo '<ul><li><a href="view_category.php?view_all=1">View All Product</a></li></ul></nav> ';
 
 	mysqli_close($dbc);
 

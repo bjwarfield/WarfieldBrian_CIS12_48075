@@ -6,11 +6,16 @@
 </head>
 <body>
 <?php
-	include("convert_state.php");
+	include("../convert_state.php");
 	function geddem($count = 1){
 		for($i =1; $i<=$count;$i++){
+			//for every count, get rondom user data from api
 			$api_get = file_get_contents('http://api.randomuser.me/?results=40');
+			
+			//decode json strong into data object
 			$jsonobj  = json_decode($api_get);
+
+			//Generate random company suffixes list
 			$co = array("Tech Enterprises", " Industries", "Corps International", "Co, Ltd.", " Foundation", " Fund", " Union", " Manufacturing", " Business Solutions", " & Sons", " & Associates", " Shrimp Co.", "'s Roadside BBQ", " Brothers Publishing", " Communications");//for random company suffixes
 		
 			//print_r ($jsonobj->results);

@@ -101,6 +101,14 @@
 				$errors[] = "Shipping weight must be numeric value.";
 			}
 		}
+		if(empty($_POST['image_url'])){
+			
+		}else{
+			$iu = mysqli_real_escape_string($dbc, trim($_POST['image_url']));
+			if(!preg_match('/^([a-z\-_0-9\/\:\.]*)$/i', $iu)){
+				$errors[] = "Please enter a valid image URL";
+			}
+		}
 		if(empty($_POST['country_id'])){
 			$country_id = "NULL";
 		}else{
@@ -112,7 +120,7 @@
 		if(empty($errors)){#if no errors
 			@require('project_DBconnect.php');
 			#update DB record with validated values
-			$q = "UPDATE entity_products SET `name` = '$name', `sku` = '$sku', `short_description` = '$sd', `long_description` = '$ld', `on_hand_qty` = '$oh_qty', `taxable`= $tax, `price` = $price, `cost` = $cost, `manufacturer_id` = $man_id, `upc` = '$upc', `shipping_weight` = $sw, `country_id` = $country_id WHERE `product_id` = $pro_id;";
+			$q = "UPDATE entity_products SET `name` = '$name', `sku` = '$sku', `short_description` = '$sd', `long_description` = '$ld', `on_hand_qty` = '$oh_qty', `taxable`= $tax, `price` = $price, `cost` = $cost, `manufacturer_id` = $man_id, `upc` = '$upc', `shipping_weight` = $sw, `country_id` = $country_id, `image_url` = $iu WHERE `product_id` = $pro_id;";
 			$r= @mysqli_query($dbc,$q);
 
 
@@ -137,7 +145,7 @@
 
 	#JS ValidationScript
 	?>
-	<script type="text/javascript" src="validator.js"></script>
+	<script type="text/javascript" src="includes/validator.js"></script>
 	<?PHP
 
 	#get enumerated list of Coutry IDs
@@ -167,14 +175,23 @@
 	if(is_object($r))$r->free();#Free query result
 	echo '
 	<p><label for="name">Name *:</label><input id="input_name" name="name" maxlength="50" size="85" type="text" required="required" value="'.htmlspecialchars($row['name']).'"><br /><label></label></p><br />
+	
 	<p><label for="sku">SKU *:</label><input name="sku" id="input_sku" type="text" required="required" size="55" maxlength="45" value="'.htmlspecialchars($row['sku']).'"><label></label></p><br />
+	
 	<p><label for="short_description">Short Description *</label><textarea name="short_description" id="input_short_description" required="required" style="resize:none" maxlength="254" rows="3" cols="85" >'.htmlspecialchars($row['short_description']).'</textarea><br /><label></label></p><br />
+	
 	<p><label for="long_description">Long Description *:</label><textarea name="long_description" id="input_long_description" required="required" style="resize:none" maxlength="60000" rows="7" cols="85">'.htmlspecialchars($row['long_description']).'</textarea><br /><label></label></p><br />
+	
 	<p><label for="on_hand_qty">On Hand Quantity *:</label><input name="on_hand_qty" id="input_on_hand_qty" type="text" required="required" value="'.$row['on_hand_qty'].'"><label></label></p><br />
+	
 	<p><label for="price">Price *:</label><input name="price" id="input_price" type="text" required="required" value="'.$row['price'].'"><label></label></p><br />
+	
 	<p><label for="taxable">Taxable :</label><input name="taxable" type="checkbox" value="1" '.($row['taxable']?"checked":"").'></p><br />
+	
 	<p><label for="cost">Cost :</label><input name="cost" id="input_cost" type="text" value="'.$row['cost'].'"><label></label></p><br />
+	
 	<p><label for="manufacturer_id">Manufacturer :</label><select name="manufacturer_id">
+	
 	<option value="" '.(is_null($row['manufacturer_id'])?'selected':'').'></option>';
 		foreach ($enum_manufacturer as $key => $value) {
 			//echo "<p>DEBUG: Key: $key Value: $value Row[id]: ".$row['manufacturer_id']."</p>";
@@ -183,8 +200,13 @@
 	
 		echo'
 		</select></p><br />
+	
 	<p><label for="upc">UPC: </label><input name="upc" id="input_upc" type="text" value="'.$row['upc'].'"><label></label></p><br />
+	
 	<p><label for="shipping_weight">Shipping Weight :</label><input name="shipping_weight" type="text" value="'.$row['shipping_weight'].'"><label></label></p><br />
+	
+	<p><label for="image_url">Image Url :</label><input id="image_url" name="image_url" maxlength="50" size="85" type="text" value="'.htmlspecialchars($row['image_url']).'"><br /><label></label></p><br />
+
 	<p><label for="country_id">country :</label><select name="country_id"><br />
 	<option value="" '.(is_null($row['country_id'])?'selected':'').'></option>';
 		foreach ($enum_country as $key => $value) {

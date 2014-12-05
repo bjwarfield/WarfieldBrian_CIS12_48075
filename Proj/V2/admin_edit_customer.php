@@ -16,7 +16,7 @@ if((isset($_POST['customer_id'])) && (is_numeric($_POST['customer_id']))){
 }
 
 ?>
-<script type="text/javascript" src="validator.js" ></script><!-- Javascript validator -->
+<script type="text/javascript" src="includes/validator.js" ></script><!-- Javascript validator -->
 <?php
 
 @require ('project_DBconnect.php'); // Connect to the db.
