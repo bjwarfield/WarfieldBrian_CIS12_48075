@@ -166,12 +166,9 @@
 			</form>';
 
 	#Query for products within the qualified range
-	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`on_hand_qty`, `entity_products`.`price`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`shipping_weight`, `enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM { OJ `bladeshop`.`entity_products` AS `entity_products` LEFT OUTER JOIN `bladeshop`.`enum_country` AS `enum_country` ON `entity_products`.`country_id` = `enum_country`.`country_id` LEFT OUTER JOIN `bladeshop`.`enum_manufacturer` AS `enum_manufacturer` ON `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` }, `bladeshop`.`entity_atribute_set` AS `entity_atribute_set` WHERE `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`on_hand_qty`, `entity_products`.`price`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`shipping_weight`, `enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM { OJ  `entity_products` LEFT OUTER JOIN  `enum_country` ON `entity_products`.`country_id` = `enum_country`.`country_id` LEFT OUTER JOIN `enum_manufacturer` ON `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` }, `entity_atribute_set` WHERE `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	//echo $q;
 	 $r = mysqli_query($dbc, $q);
-/*	 echo '<pre>';
-	 print_r($r);
-	 echo '</pre>';*/
 
 	# Table header:
 echo '<table class="admin_product_list">

@@ -30,6 +30,12 @@ window.onload = function(){
 		if (inputs[i].name === "pass2" ){
 			passCheck(inputs[i]);
 		}
+		if(inputs[i].name === "on_hand_qty" || inputs[i].name === "upc" || inputs[i].name === "shipping_weight"){
+			posInt(inputs[i]);
+		}
+		if(inputs[i].name === "price" || inputs[i].name === "cost"){
+			checkMoney(inputs[i]);
+		}
 	}
 };
 
@@ -143,6 +149,10 @@ function zipMask(item){
 function passMatch(item){
 	item.addEventListener("blur", function(event){
 		var re = new RegExp(event.target.pattern);
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+
 		if(event.target.value === ""){
 			errorNode.classList.add("error");
 			errorNode.innerHTML = "This is a Required Field";
@@ -174,3 +184,39 @@ function passCheck(item){
 		},200);//200ms delay
 	});
 } 
+
+//verify positive interger values
+function posInt(item){
+	item.addEventListener("blur", function(event){
+		var re = new RegExp(event.target.pattern);
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+		if(event.target.value === ""){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
+		}else if(!re.test(event.target.value)){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Must be a positive integer";
+		}else{
+			errorNode.innerHTML = "";
+		}
+	});	
+}
+function checkMoney(item){
+	item.addEventListener("blur", function(event){
+		var re = new RegExp(event.target.pattern);
+		//get next label node for error output
+		var  errorNode= event.target.nextSibling;
+		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
+		if(event.target.value === ""){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
+		}else if(!re.test(event.target.value)){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Must be positive Decimal (2 or 3.50)";
+		}else{
+			errorNode.innerHTML = "";
+		}
+	});	
+}

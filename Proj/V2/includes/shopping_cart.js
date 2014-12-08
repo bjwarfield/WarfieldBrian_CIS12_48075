@@ -1,4 +1,4 @@
-//Shopping carp scripts
+//Shopping cart scripts
 
 
 function toMoney (money){//takes a number a returns a string in USD format ie: "$10,001.50"
@@ -202,4 +202,4 @@ window.addEventListener("load", function(){
 	//update cart display
 	updateCart();
 
-	});
+});

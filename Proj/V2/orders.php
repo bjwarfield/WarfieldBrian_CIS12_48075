@@ -16,11 +16,21 @@ include('includes/header.html');
 @require('project_DBconnect.php');
 $q = "SELECT order_id, order_date, order_status_id, shipping_method_id, order_total FROM entity_orders WHERE customer_id = $customer_id ORDER BY order_date;";
 $r = mysqli_query($dbc, $q);
+
+//display msg if no orders available
+if( $r->num_rows < 1){
+	echo "<br/><h1>Order History</h1><br/>
+	<p>You do not have any orders.</p>";
+	if(is_object($r))$r -> free();
+	mysqli_close($dbc);
+	include('includes/footer.html');
+	exit();
+}
 unset($q);
 
 
 $orders = mysqli_fetch_all($r, MYSQLI_ASSOC);
-$r -> free();
+if(is_object($r))$r -> free();
 //collect data in $order_id_list
 $order_id_list = array();
 foreach ($orders as $key) {
@@ -34,7 +44,7 @@ $r = mysqli_query($dbc, $q);
 unset($q);
 
 $orders_lines = mysqli_fetch_all($r, MYSQLI_ASSOC);
-$r -> free();
+if(is_object($r))$r -> free();
 
 //collect list of product IDs for which to get names
 $product_id_list = array();
@@ -57,14 +67,14 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 		}
 	}
 }
-$r -> free();
+if(is_object($r))$r -> free();
 unset($key);
 unset($value);
 
 
 //get shipping method per order
 $q = 'SELECT * FROM enum_shipping_method;';
-$r = mysqli_query($dbc, $q);
+if(is_object($r))$r = mysqli_query($dbc, $q);
 unset($q);
 
 //append data to order array

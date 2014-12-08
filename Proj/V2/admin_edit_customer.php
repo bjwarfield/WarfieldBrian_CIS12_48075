@@ -175,7 +175,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 }
 
 #get enumerated list of Status IDs
-$q = 'SELECT * FROM `bladeshop`.`enum_customer_status` AS `enum_customer_status`';
+$q = 'SELECT * FROM `enum_customer_status`';
 $r = @mysqli_query($dbc, $q);
 $enum_status = array();
 while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){

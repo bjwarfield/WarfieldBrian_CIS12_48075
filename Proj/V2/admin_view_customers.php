@@ -61,7 +61,7 @@ switch ($sort) {
 }
 	
 // Define the query:
-$q = 'SELECT `entity_customers`.`customer_id`, `entity_customers`.`last_name`, `entity_customers`.`first_name`, `entity_customers`.`phone_1`, `entity_customers`.`state`, `entity_customers`.`zip_code`, DATE_FORMAT(`entity_customers`.`registration_date`, "%d %b %Y") AS `registration_date` , `enum_customer_status`.`customer_status` FROM `bladeshop`.`entity_customers` AS `entity_customers`, `bladeshop`.`enum_customer_status` AS `enum_customer_status` WHERE `entity_customers`.`customer_status_id` = `enum_customer_status`.`customer_status_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';		
+$q = 'SELECT `entity_customers`.`customer_id`, `entity_customers`.`last_name`, `entity_customers`.`first_name`, `entity_customers`.`phone_1`, `entity_customers`.`state`, `entity_customers`.`zip_code`, DATE_FORMAT(`entity_customers`.`registration_date`, "%d %b %Y") AS `registration_date` , `enum_customer_status`.`customer_status` FROM `entity_customers`, `enum_customer_status` WHERE `entity_customers`.`customer_status_id` = `enum_customer_status`.`customer_status_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';		
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 //Display Pagination options

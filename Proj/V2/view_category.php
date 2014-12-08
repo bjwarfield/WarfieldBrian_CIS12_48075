@@ -1,10 +1,69 @@
 <?php 
 	session_start();
 	$page_title = 'View Category';//name page
-	 include('includes/header.html'); 
+
+	 //check for paginator cookie
+	if (isset($_COOKIE['i_page'])){
+		$paginator = json_decode($_COOKIE['i_page'], TRUE);
+		$display = $paginator['display'];
+		$sort = $paginator['sort'];	
+	} 
+	// out_obj($paginator);
+	//check $_GET for validity, set defaul if not 
+	if(isset($_GET['display'])&& is_numeric($_GET['display'])){
+		$paginator["display"] = $display = $_GET['display'];
+	}else if(!isset($paginator["display"])){
+		$paginator["display"] = $display = 10;
+	}
 
 
-	 //Check $_GET for validity and register category
+	// Check $_GET and cookie data for sort validity, Default to Name ASC
+	//check $_GET for validity, set defaul if not 
+	if(isset($_GET['sort'])){
+		$paginator["sort"] = $sort = $_GET['sort'];
+	}else if(!isset($paginator["sort"])){
+		$paginator["sort"] = $sort = 'namea';
+	}
+
+	// Determine the sorting order:
+	//set variable for query
+	switch ($sort) {
+	case 'namea':
+		$order_by = 'name ASC';
+		break;
+	case 'named':
+		$order_by = 'name DESC';
+		break;
+	case 'pricea':
+		$order_by = 'price ASC';
+		break;
+	case 'priced':
+		$order_by = 'price DESC';
+		break;
+	case 'skua':
+		$order_by = 'sku ASC';
+		break;
+	case 'skud':
+		$order_by = 'sku DESC';
+		break;
+	case 'qtya':
+		$order_by = 'on_hand_qty ASC';
+		break;
+	case 'qtyd':
+		$order_by = 'on_hand_qty DESC';
+		break;
+	default:
+		$order_by = 'name ASC';
+		$sort = 'namea';
+		break;
+	}
+	$paginator['sort'] = $sort;
+
+
+	//store pagination option in cookie for 30min
+	setcookie("i_page", json_encode($paginator), time()+1800, '/');
+	include('includes/header.html'); 
+	//Check $_GET for validity and register category
 	if(isset($_GET['category_id']) && is_numeric($_GET['category_id'] ) && array_key_exists($_GET['category_id'] , $data)){
 		$cat_id=$_GET['category_id'];
 	}else if(isset($_GET['view_all'])){//view all enabled product, regardless of category 
@@ -14,6 +73,35 @@
 	 	include('includes/footer.html');
 	 	exit();
 	 }
+	// Count how many products are in current category
+	 @require("project_DBconnect.php");
+	 if(!isset($va)){//if not View all, select category
+	 	$q = 'SELECT COUNT( `xref_product_categories`.`product_id` ), `xref_product_categories`.`category_id` FROM `xref_product_categories`, `entity_products`, `entity_categories` WHERE `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `entity_products`.`enabled` = TRUE AND `xref_product_categories`.`category_id` = '.$cat_id.';';
+	 }else{//otherwise get all enabled products
+	 	$q = 'SELECT COUNT( `entity_products`.`product_id` ) FROM  `entity_products` WHERE `entity_products`.`enabled` = TRUE;';
+	 }
+	$r = @mysqli_query ($dbc, $q);
+		
+	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
+	$records = $row[0];
+	
+	// Calculate the number of pages...
+	if ($records > $display) { 
+		$pages = ceil ($records/$display);
+	} else {
+		$pages = 1;
+	}
+
+	// Determine where in the database to start returning results...
+	$start = (isset($_GET['s']) && is_numeric($_GET['s']) && $_GET['s'] <= $records-1 && $_GET['s']>=0 ) ? $_GET['s'] : 0;
+
+
+	// Check $_GET for sort validity, Default to Name ASC
+	// Determine where in the database to start returning results...
+	$start = (isset($_GET['s']) && is_numeric($_GET['s']) && $_GET['s'] <= $records-1 && $_GET['s']>=0 ) ? $_GET['s'] : 0;
+
+
+
 
 	 //Recursive function traces branch path to root category, outputting the results in reverse 
 	 function breadcrumbs($id){
@@ -38,65 +126,7 @@
 		echo $data[$cat_id]['name'].'</nav>';
 	}
 
-	//check $_GET for validity, set defaul if not 
-	if(isset($_GET['display'])&& is_numeric($_GET['display'])){
-		$display = $_GET['display'];
-	}else{
-		$display = 10;
-	}
-
-
-	// Count how many products are in current category
-	 @require("project_DBconnect.php");
-	 if(!isset($va)){//if not View all, select category
-	 	$q = 'SELECT COUNT( `xref_product_categories`.`product_id` ), `xref_product_categories`.`category_id` FROM `bladeshop`.`xref_product_categories` AS `xref_product_categories`, `bladeshop`.`entity_products` AS `entity_products`, `bladeshop`.`entity_categories` AS `entity_categories` WHERE `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `entity_products`.`enabled` = TRUE AND `xref_product_categories`.`category_id` = '.$cat_id.';';
-	 }else{//otherwise get all enabled products
-	 	$q = 'SELECT COUNT( `entity_products`.`product_id` ) FROM `bladeshop`.`entity_products` AS `entity_products` WHERE `entity_products`.`enabled` = TRUE;';
-	 }
-	$r = @mysqli_query ($dbc, $q);
 	
-	/*echo '<pre>';
-	print_r($r);
-	echo "</pre>";*/
-	
-	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
-	$records = $row[0];
-	//echo '<p>records = '.$records.'</p>';
-	
-	// Calculate the number of pages...
-	if ($records > $display) { 
-		$pages = ceil ($records/$display);
-	} else {
-		$pages = 1;
-	}
-	//echo '<p>Pages = '.$pages.'</p>';
-
-	// Determine where in the database to start returning results...
-	$start = (isset($_GET['s']) && is_numeric($_GET['s']) && $_GET['s'] <= $records-1 && $_GET['s']>=0 ) ? $_GET['s'] : 0;
-	//echo $start;
-	// Check $_GET for sort validity, Default to Name ASC
-	$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'namea';
-
-	// Determine the sorting order:
-	//set variable for query
-	switch ($sort) {
-		case 'namea':
-			$order_by = 'name ASC';
-			break;
-		case 'named':
-			$order_by = 'name DESC';
-			break;
-		case 'pricea':
-			$order_by = 'price ASC';
-			break;
-		case 'priced':
-			$order_by = 'price DESC';
-			break;
-		default:
-			$order_by = 'name ASC';
-			$sort = 'namea';
-			break;
-	}
 
 	//Paginated links function
 	function page_selector(){
@@ -153,32 +183,38 @@
 
 	//Query for products within the qualified range
 	if(!isset($va)){
-		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url`, `entity_categories`.`category_id` FROM `bladeshop`.`xref_product_categories` AS `xref_product_categories`, `bladeshop`.`entity_categories` AS `entity_categories`, `bladeshop`.`entity_products` AS `entity_products` WHERE `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `entity_products`.`enabled` = TRUE AND `entity_categories`.`category_id`= '.$cat_id.' ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url`, `entity_categories`.`category_id` FROM  `xref_product_categories`,   `entity_categories`,  `entity_products` WHERE `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `entity_products`.`enabled` = TRUE AND `entity_categories`.`category_id`= '.$cat_id.' ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	}else{//select all enabled products 
-		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url`, `entity_categories`.`category_id` FROM `bladeshop`.`xref_product_categories` AS `xref_product_categories`, `bladeshop`.`entity_categories` AS `entity_categories`, `bladeshop`.`entity_products` AS `entity_products` WHERE `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `entity_products`.`enabled` = TRUE GROUP BY `entity_products`.`product_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url` FROM   `entity_products` WHERE  `entity_products`.`enabled` = TRUE GROUP BY `entity_products`.`product_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	}
-
+	
 	 $r = mysqli_query($dbc, $q);
-/*	 echo '<pre>';
-	 print_r($r);
-	 echo '</pre>';*/
+
 
 	 echo '<form class="paginator" action="view_category.php" method="get">
 	 			<label>Sort</label>
 	 			<select name="sort">
-	 				<option value="namea" '.(($sort=="namea")?'selected="selected"':'').'>Name [A-Z]</option>
-	 				<option value="named" '.(($sort=="named")?'selected="selected"':'').'>Name [Z-A]</option>
+	 				<option value="namea" '.(($sort=="namea")?'selected="selected"':'').'>Name, [A-Z]</option>
+	 				<option value="named" '.(($sort=="named")?'selected="selected"':'').'>Name, [Z-A]</option>
 	 				<option value="pricea" '.(($sort=="pricea")?'selected="selected"':'').'>Price, Lowest First</option>
 	 				<option value="priced" '.(($sort=="priced")?'selected="selected"':'').'>Price, Highest First</option>
- 				</select>
- 				<label>Display</label>
- 				<select name=display>
-	 				<option value="5" '.(($display==5)?'selected="selected"':'').'>5</option>
- 					<option value="10" '.(($display==10)?'selected="selected"':'').'>10</option>
- 					<option value="15" '.(($display==15)?'selected="selected"':'').'>15</option>
- 					<option value="20" '.(($display==20)?'selected="selected"':'').'>20</option>
- 					<option value="25" '.(($display==25)?'selected="selected"':'').'>25</option>
- 					<option value="30" '.(($display==30)?'selected="selected"':'').'>30</option>
+	 				<option value="skua" '.(($sort=="skua")?'selected="selected"':'').'>SKU [A-Z]</option>
+	 				<option value="skud" '.(($sort=="skud")?'selected="selected"':'').'>SKU [Z-A]</option>
+	 				<option value="qtya" '.(($sort=="qtya")?'selected="selected"':'').'>Quantity, Least First</option>
+	 				<option value="qtyd" '.(($sort=="qtyd")?'selected="selected"':'').'>Quantity, Most First</option>
+				</select>
+				<label>Display</label>
+				<select name=display>
+ 					<option value="5" '.(($display==5)?'selected="selected"':'').'>5</option>
+					<option value="10" '.(($display==10)?'selected="selected"':'').'>10</option>
+					<option value="15" '.(($display==15)?'selected="selected"':'').'>15</option>
+					<option value="20" '.(($display==20)?'selected="selected"':'').'>20</option>
+					<option value="25" '.(($display==25)?'selected="selected"':'').'>25</option>
+					<option value="30" '.(($display==30)?'selected="selected"':'').'>30</option>
+					<option value="35" '.(($display==35)?'selected="selected"':'').'>35</option>
+					<option value="40" '.(($display==40)?'selected="selected"':'').'>40</option>
+					<option value="45" '.(($display==45)?'selected="selected"':'').'>45</option>
+					<option value="50" '.(($display==50)?'selected="selected"':'').'>50</option>
  				</select>
  				<input type="submit" value="Submit">
  				<input name="'.(isset($va)?"view_all":"category_id").'" type="hidden" value='.(isset($va)?"1":$cat_id).'>' 				

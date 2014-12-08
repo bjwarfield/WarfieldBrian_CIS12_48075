@@ -38,7 +38,10 @@ echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 </ul>'#output logged in options
 : '<ul>
 <li id="shopping_cart"><a href="view_cart.php"><span id="cart_qty">0</span> items - <span id="total">$0.00</span></a><ul></ul></li>
-		<li><a href="login.php">Login</a></li>
+<li><a href="login.php">Login</a>
+	<ul>
+		<a href="register.php">Register</a>
+	</ul></li>
 	</ul>';#else, provide login link
 	 ?>
 	 </nav>

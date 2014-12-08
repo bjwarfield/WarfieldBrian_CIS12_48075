@@ -2,7 +2,6 @@
 session_start();
 $page_title = 'Register New User';
 include ('includes/header.html');
-include('debug.php');
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -177,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 } // End of the main Submit conditional.
 ?>
-<script type="text/javascript" src="validator.js"></script><!-- Javascript Validator -->
+<script type="text/javascript" src="includes/validator.js"></script><!-- Javascript Validator -->
 <h1>Register</h1>
 <form name="register_form "action="register.php" method="post">
 <p> First Name: <input type="text" name="first_name" id="first_name" required="required" size="30" maxlength="25" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>" /><label></label></p><br/>
