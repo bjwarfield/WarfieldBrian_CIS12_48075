@@ -55,12 +55,16 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 	// against the confirmed password:
 	if (!empty($_POST['pass1'])) {
 		if ($_POST['pass1'] != $_POST['pass2']) {
-			$errors[] = 'Your new password did not match the confirmed password.';
+			$errors[] = 'Your password did not match the confirmed password.';
 		} else {
-			$np = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
+			if(preg_match("/^([a-zA-Z0-9@#$%]{6,20})$/", $_POST['pass1'])){
+				$np = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
+			}else{
+				$errors[]= 'Password must be 6-20 characters long, AlphaNumeric or @ # $ %';
+			}
 		}
 	} else {
-		$errors[] = 'You forgot to enter your new password.';
+		$errors[] = 'Missing new password.';
 	}
 	
 
@@ -108,12 +112,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		
 	} else { // Report the errors.
 	
-		echo '<h1>Error!</h1> 
-		<p class="error"> The following error(s) occurred: <br /> ';
-		foreach ($errors as $msg) { // Print each error.
-			echo " - $msg <br /> \n"; 
-		}
-		echo '</p> <p>Please try again.</p> <p> <br /> </p> ';
+		echo '<div class="error">
+			<h1>Error!</h1> 
+			<p> The following error(s) occurred: <br /> ';
+			foreach ($errors as $msg) { // Print each error.
+				echo " - $msg <br /> \n"; 
+			}
+			echo '</p> <p>Please try again.</p> <p> <br /> </p>
+		</div> ';
 		
 	} // End of if (empty($errors)) IF.
 	
@@ -132,14 +138,14 @@ if ($r->num_rows == 1){
 	<h1>Edit Password</h1>
 	<form name="edit_password" action="admin_edit_password.php" method="post">
 		<p> Old Password: <input type="password" name="pass" id="pass" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
-		<p> New Password: <input type="password" name="pass1" id="pass1" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
-		<p> Confirm New Password: <input type="password" name="pass2" id="pass2" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
+		<p> New Password: <input type="password" name="pass1" pattern="([a-zA-Z0-9@#$%]{6,20})" id="pass1" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
+		<p> Confirm New Password: <input type="password" name="pass2" pattern="([a-zA-Z0-9@#$%]{6,20})" id="pass2" required="required" size="25" maxlength="20" value=""  /><label></label></p><br/>
 
 	<p> <input type="submit" name="submit" value="Update Password" /> </p><br/>
 </form>';
 }else { // Not a valid user ID.
 	echo '<p class="error">This page has been accessed in error.</p>
-	<p>You will be <a href="index.php">redirected</a> to the homepage in 5 secs.</p>';
+	<p>You will be <a href="admin_index.php">redirected</a> to the homepage in 5 secs.</p>';
 	// header( "refresh:5;url=index.php" ); 
 }
 if(is_object($r))$r->free();

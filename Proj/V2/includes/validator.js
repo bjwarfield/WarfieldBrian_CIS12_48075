@@ -24,7 +24,7 @@ window.onload = function(){
 		if (inputs[i].name === "zip_code" ){
 			zipMask(inputs[i]);
 		}
-		if (inputs[i].name === "pass1" ){
+		if (inputs[i].name === "pass1" || inputs[i].name === "pass" ){
 			passMatch(inputs[i]);
 		}
 		if (inputs[i].name === "pass2" ){
@@ -42,23 +42,23 @@ window.onload = function(){
 //validate required fields
 function required(item){
 	
-	item.addEventListener("blur", function(event){//on field blur event
-		
-		var  errorNode= event.target.nextSibling;
-		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}//Select the following Label Node(to allow for whitespace)
-
-		if(event.target.value === ""){//if field is empty
-			
-			errorNode.classList.add("error");
-			errorNode.innerHTML = "This is a Required Field";//display error message next to field
-		}else{//if field is not empty
-		errorNode.innerHTML = "";//clear error message
-		}
-	});
+	item.addEventListener("blur", reqListener);
 }
+function reqListener(event){
+	var  errorNode= event.target.nextSibling;
+	while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}//Select the following Label Node(to allow for whitespace)
 
+	if(event.target.value === ""){//if field is empty
+		
+		errorNode.classList.add("error");
+		errorNode.innerHTML = "This is a Required Field";//display error message next to field
+	}else{//if field is not empty
+	errorNode.innerHTML = "";//clear error message
+	}
+}
 //validate email fiels
 function email(item){
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		//console.log("foo");
 		var re = new RegExp(event.target.pattern);//collect RegExp pattern from input attributes
@@ -82,7 +82,7 @@ function email(item){
 //mask and validate phone fields
 function phoneMask(item){
 	item.addEventListener("input", function(event){
-		//console.log("foo");
+		//mask phone input
 		setTimeout(function(){
 			var p_value = (event.target.value.replace(/[^\d]/g, ''));//strip non-digit fields
 			if(p_value.length === 0 ){
@@ -94,8 +94,9 @@ function phoneMask(item){
 			}else{
 				event.target.value = "("+p_value.substring(0,3)+")"+p_value.substring(3,6)+"-"+p_value.substring(6,10);
 			}
-		},75);//75ms delay
+		},50);//50ms delay
 	});
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		//get next label node for error output
 		var  errorNode= event.target.nextSibling;
@@ -114,6 +115,7 @@ function phoneMask(item){
 	});	
 } 
 function zipMask(item){
+	//mask input field with hyphen if over 5 digits
 	item.addEventListener("input", function(event){
 		//console.log("foo");
 		setTimeout(function(){
@@ -127,6 +129,7 @@ function zipMask(item){
 			}
 		},75);
 	});
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		
 		//get next label node for error output
@@ -147,6 +150,7 @@ function zipMask(item){
 }
 //verify valid password
 function passMatch(item){
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		var re = new RegExp(event.target.pattern);
 		//get next label node for error output
@@ -166,16 +170,22 @@ function passMatch(item){
 }
 //Verify password field matches
 function passCheck(item){
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("input", function(event){
 
 		//get next label node for error output
 		var  errorNode= event.target.nextSibling;
 		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
 
+
 		setTimeout(function(){
 			var pass1 = document.forms[0].elements.pass1.value;
 			var pass2 = event.target.value;
-			if(pass1 != pass2){
+			
+			if(event.target.value === ""){
+				errorNode.classList.add("error");
+				errorNode.innerHTML = "This is a Required Field";
+			}else if(pass1 != pass2){
 				errorNode.classList.add("error");
 				errorNode.innerHTML = "Password Fields must match";
 			}else{
@@ -187,6 +197,7 @@ function passCheck(item){
 
 //verify positive interger values
 function posInt(item){
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		var re = new RegExp(event.target.pattern);
 		//get next label node for error output
@@ -204,6 +215,7 @@ function posInt(item){
 	});	
 }
 function checkMoney(item){
+	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		var re = new RegExp(event.target.pattern);
 		//get next label node for error output

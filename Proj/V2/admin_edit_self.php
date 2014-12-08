@@ -14,7 +14,7 @@ if((isset($_SESSION['admin_id'])) && (is_numeric($_SESSION['admin_id']))){
 }else{
 	echo '<p class="error">This page has been accessed in error.</p>
 	<p>You will be <a href="admin_index.php">redirected</a> to the homepage in 5 secs.</p>';
-	header( "refresh:5;url=index.php" ); 
+	header( "refresh:5;url=admin_index.php" ); 
 
 	include ('includes/footer.html'); 
 	exit();
@@ -76,8 +76,8 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 			// Print a message:
 			echo "<h1>Confirmed</h1>
 			<p>Administrator <strong>".stripcslashes($fn)." ".stripcslashes($ln)."</strong> sucessfully Updated</p>
-			<p><a href='admin_edit_self.php'>Reloading</a> in 5 secs.</p>";
-			header( "refresh:5;url=admin_edit_self.php" ); 
+			<p><a href='admin_index.php'>Redirecting</a> in 5 secs.</p>";
+			header( "refresh:5;url=admin_index.php" ); 
 			include('includes/footer.html');
 			exit();
 		
