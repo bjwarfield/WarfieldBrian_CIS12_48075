@@ -5,8 +5,9 @@ $page_title = 'Customer Orders';
 
 
 include('includes/admin.html');
-include("debug.php");//debuggin scripts
 
+include("debug.php");//debuggin scripts
+@require('project_DBconnect.php');
 //check $_GET for validity, set defaul if not 
 if(isset($_GET['display'])&& is_numeric($_GET['display'])){
 	$display = $_GET['display'];
@@ -61,14 +62,17 @@ switch ($sort) {
 }
 
 //get list of customer orders
-@require('project_DBconnect.php');
+
 $q = "SELECT `bw1780661_entity_orders`.`order_id`, `bw1780661_entity_customers`.`last_name`, `bw1780661_entity_customers`.`first_name`, `bw1780661_entity_orders`.`order_date`, `bw1780661_entity_orders`.`shipping_method_id`, `bw1780661_entity_orders`.`order_status_id`, `bw1780661_entity_orders`.`order_total` FROM `bw1780661_entity_orders`, `bw1780661_entity_customers` WHERE `bw1780661_entity_orders`.`customer_id` = `bw1780661_entity_customers`.`customer_id` ORDER BY $order_by LIMIT $start, $display;";
+
 $r = mysqli_query($dbc, $q);
 unset($q);
 
 
 $orders = mysqli_fetch_all($r, MYSQLI_ASSOC);
-$r -> free();
+
+
+if(is_object($r))$r -> free();
 //collect data in $order_id_list
 $order_id_list = array();
 foreach ($orders as $key) {
@@ -78,11 +82,11 @@ unset($key);
 
 //get list of order line items
 $q = 'SELECT line_item_id, order_id, product_id, qty, price FROM `bw1780661_entity_order_line_item` where order_id in ('.substr(json_encode($order_id_list),1,-1).');';
-$r = mysqli_query($dbc, $q);
+if(is_object($r))$r = mysqli_query($dbc, $q);
 unset($q);
 
 $orders_lines = mysqli_fetch_all($r, MYSQLI_ASSOC);
-$r -> free();
+if(is_object($r))$r -> free();
 
 //collect list of product IDs for which to get names
 $product_id_list = array();
@@ -105,13 +109,13 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 		}
 	}
 }
-$r -> free();
+if(is_object($r))$r -> free();
 unset($key);
 unset($value);
 
 
 //get shipping method per order
-$q = 'SELECT * FROM bw1780661_enum_shipping_method;';
+$q = 'SELECT shipping_method_id, shipping_method FROM bw1780661_enum_shipping_method;';
 $r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -123,7 +127,7 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 		}
 	}
 }
-$r -> free();
+if(is_object($r))$r -> free();
 unset($key);
 unset($value);
 
@@ -149,9 +153,9 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
  				<option value="lnd" '.(($sort=="lnd")?'selected="selected"':'').'>Last Name (Z-A)</option>
  				<option value="fna" '.(($sort=="fna")?'selected="selected"':'').'>First Name (A-Z)</option>
  				<option value="fnd" '.(($sort=="fnd")?'selected="selected"':'').'>First Name (Z-A)</option>
- 				<option value="oda" '.(($sort=="oda")?'selected="selected"':'').'">Order Date (oldest First)</option>
- 				<option value="odd" '.(($sort=="odd")?'selected="selected"':'').'">Order Date (Newest First)</option>
- 				<option value="os" '.(($sort=="os")?'selected="selected"':'').'">Order Status</option>
+ 				<option value="oda" '.(($sort=="oda")?'selected="selected"':'').'>Order Date (oldest First)</option>
+ 				<option value="odd" '.(($sort=="odd")?'selected="selected"':'').'>Order Date (Newest First)</option>
+ 				<option value="os" '.(($sort=="os")?'selected="selected"':'').'>Order Status</option>
 				</select>
 				<label>Display</label>
 				<select name=display>
@@ -175,9 +179,9 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 echo '<br/><h1>Order History</h1><br/>';
 foreach ($orders as $ord) {
 	echo "<table class='order_list'>
-	<tr><td colspan='2'> <strong>Order:</strong> #".$ord['order_id']." <strong>Customer Name:</strong> ".$ord['first_name']." ".$ord['last_name']."</td><td colspan='2'> <strong>Date:</strong> ".date("h:i A m/d/y", strtotime($ord['order_date']))."</td></tr>
-	<tr><td colspan='2'> <strong>Shipping Method:</strong> ".$ord['shipping_method_id']."</td><td colspan='2'> <strong>Status:</strong> ".$ord['order_status_id']."</td></tr>";
-	echo '<tr><td colspan="4"><form action="admin_edit_order.php" method="post"><input type="hidden" name="order_id" value="'.intval($ord['order_id']).'" ><input type="submit" value="View Order"></form><span><strong>Total:</strong> $'.number_format($ord['order_total'],2).'</span></td></tr>
+	<tr><td> <strong>Order:</strong> #".$ord['order_id']." <strong>Customer Name:</strong> ".$ord['first_name']." ".$ord['last_name']."</td><td> <strong>Date:</strong> ".date("h:i A m/d/y", strtotime($ord['order_date']))."</td></tr>
+	<tr><td> <strong>Shipping Method:</strong> ".$ord['shipping_method_id']."</td><td> <strong>Status:</strong> ".$ord['order_status_id']."</td></tr>";
+	echo '<tr><td colspan="2"><form action="admin_edit_order.php" method="post"><input type="hidden" name="order_id" value="'.intval($ord['order_id']).'" ><input type="submit" value="View Order"></form><span><strong>Total:</strong> $'.number_format($ord['order_total'],2).'</span></td></tr>
 	</table>';
 }
 

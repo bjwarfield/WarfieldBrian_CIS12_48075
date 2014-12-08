@@ -196,7 +196,7 @@
 	
 	<p><label for="long_description">Long Description *:</label><textarea name="long_description" id="input_long_description" required="required" style="resize:none" maxlength="60000" rows="7" cols="85">'.htmlspecialchars($row['long_description']).'</textarea><br /><label></label></p><br />
 	
-	<p><label for="on_hand_qty">On Hand Quantity *:</label><input name="on_hand_qty" id="input_on_hand_qty" pattern="^\d+$" type="text" required="required" value="'.$row['on_hand_qty'].'"><label></label></p><br />
+	<p><label for="on_hand_qty">On Hand Quantity *:</label><input name="on_hand_qty" id="input_on_hand_qty" pattern="^\d*$" type="text" required="required" value="'.$row['on_hand_qty'].'"><label></label></p><br />
 	
 	<p><label for="price">Price *:</label><input name="price" id="input_price" type="text" pattern="^(\d*(\.\d{1,2})?)$" required="required" value="'.$row['price'].'"><label></label></p><br />
 	
@@ -215,9 +215,9 @@
 		echo'
 		</select></p><br />
 	
-	<p><label for="upc">UPC: </label><input name="upc" pattern="^\d+$" id="input_upc" type="text" value="'.$row['upc'].'"><label></label></p><br />
+	<p><label for="upc">UPC: </label><input name="upc" pattern="^\d*$" id="input_upc" type="text" value="'.$row['upc'].'"><label></label></p><br />
 	
-	<p><label for="shipping_weight">Shipping Weight :</label><input name="shipping_weight" pattern="^\d+$" type="text" value="'.$row['shipping_weight'].'"><label></label></p><br />
+	<p><label for="shipping_weight">Shipping Weight :</label><input name="shipping_weight" pattern="^\d*$" type="text" value="'.$row['shipping_weight'].'"><label></label></p><br />
 	
 	<p><label for="image_url">Image Url :</label><input id="image_url" name="image_url" maxlength="50" size="85" type="text" value="'.htmlspecialchars($row['image_url']).'"><br /><label></label></p><br />
 

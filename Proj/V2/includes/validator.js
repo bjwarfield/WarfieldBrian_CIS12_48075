@@ -197,16 +197,12 @@ function passCheck(item){
 
 //verify positive interger values
 function posInt(item){
-	item.removeEventListener('blur', reqListener);
 	item.addEventListener("blur", function(event){
 		var re = new RegExp(event.target.pattern);
 		//get next label node for error output
 		var  errorNode= event.target.nextSibling;
 		while(errorNode.nodeName != 'LABEL'){errorNode=errorNode.nextSibling;}
-		if(event.target.value === ""){
-			errorNode.classList.add("error");
-			errorNode.innerHTML = "This is a Required Field";
-		}else if(!re.test(event.target.value)){
+		if(!re.test(event.target.value)){
 			errorNode.classList.add("error");
 			errorNode.innerHTML = "Must be a positive integer";
 		}else{
