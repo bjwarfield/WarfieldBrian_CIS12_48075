@@ -14,9 +14,10 @@
 <nav class="user_bar">
 <?php 
 echo (isset($_SESSION['customer_id']))? #if Customer is logged in
-'<h3>Welcome '.$_SESSION['first_name'].' '.$_SESSION['last_name'].'</h3>
+'<h3 style="padding:9px 25px;float:left;">Welcome: '.htmlspecialchars($_SESSION['first_name']).' '.htmlspecialchars($_SESSION['last_name']).'</h3>
 <ul>
-	<li id="shopping_cart"><a href="view_cart.php"><span id="cart_qty">0</span> items - <span id="total">$0.00</span></a><ul></ul></li>
+	<li></li>
+	<li id="shopping_cart"><a href="view_cart.php"><span id="cart_qty">0</span> items - <span id="total">$0.00</span></a><ul '.(basename($_SERVER['PHP_SELF']) != 'checkout.php'?'':'style="display:none;"').'></ul></li>
 	<li>
 		<a href="account.php">Your Account</a>
 		<ul>
@@ -60,7 +61,7 @@ echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 		$index[$parent_category_id][] = $category_id;
 	}
 	$r->free();
-
+	unset($q);
 
 	//Recursive function cyckes through data, checking index for child categories. Outputs results into unordered list
 	function output_cats($parent_id = 0){

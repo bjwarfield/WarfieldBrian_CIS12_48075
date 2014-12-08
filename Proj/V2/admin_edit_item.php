@@ -4,7 +4,7 @@
 	$page_title = 'Product Administration';
 	include('includes/admin.html'); 
 	include('convert_state.php');
-	//out_obj($_POST);
+	
 	#validate product ID, exit if invalid
 	if($_SERVER['REQUEST_METHOD']=='POST' && !isset($_POST_["product_id"])){
 		if(isset($_POST['product_id']) && is_numeric($_POST['product_id'] )){

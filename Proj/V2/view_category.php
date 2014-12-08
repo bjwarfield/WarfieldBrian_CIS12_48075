@@ -45,10 +45,7 @@
 		$display = 10;
 	}
 
-	//echo '<p>display = '.$display.'</p>';
-	// echo '<p>IS P SET? = '.isset($_GET['p']).'</p>';
-	// echo '<p>IS P NUMERIC? = '.is_numeric($_GET['p']).'</p>';
-	
+
 	// Count how many products are in current category
 	 @require("project_DBconnect.php");
 	 if(!isset($va)){//if not View all, select category
@@ -206,11 +203,12 @@
 	 			</div>
 	 			<div class="price_block">
 	 				<h3>$'.$row['price']."</h3>
-	 				<button type='button' onclick='addCart(".json_encode(array ('pid' => $row['product_id'], 'pn' => $row['name'], 'pp' => $row['price'], 'pmq' => $row['on_hand_qty'],  ),JSON_HEX_QUOT).")'>Add to Cart</button>
+	 				<button type='button' onclick='addCart(".json_encode(array ('pid' => $row['product_id'], 'pn' => $row['name'], 'pp' => $row['price'], 'pmq' => $row['on_hand_qty']),JSON_HEX_APOS | JSON_HEX_QUOT).")'>Add to Cart</button>
 	 			</div>
 	 		</div>
 				";
  	 } 
+
  	 echo '</div>';
 	 page_selector();
 	 	}else{

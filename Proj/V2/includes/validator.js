@@ -24,9 +24,13 @@ window.onload = function(){
 		if (inputs[i].name === "zip_code" ){
 			zipMask(inputs[i]);
 		}
+		if (inputs[i].name === "pass1" ){
+			passMatch(inputs[i]);
+		}
 		if (inputs[i].name === "pass2" ){
 			passCheck(inputs[i]);
-		}	}
+		}
+	}
 };
 
 //validate required fields
@@ -135,7 +139,21 @@ function zipMask(item){
 		}				
 	});	
 }
-
+//verify valid password
+function passMatch(item){
+	item.addEventListener("blur", function(event){
+		var re = new RegExp(event.target.pattern);
+		if(event.target.value === ""){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "This is a Required Field";
+		}else if(!re.test(event.target.value)){
+			errorNode.classList.add("error");
+			errorNode.innerHTML = "Password must be 6-20 characters long: AlphaNumeric or @ # $ %";
+		}else{
+			errorNode.innerHTML = "";
+		}
+	});
+}
 //Verify password field matches
 function passCheck(item){
 	item.addEventListener("input", function(event){

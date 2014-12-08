@@ -24,7 +24,7 @@
 	 	echo '<p><strong>Manufacturer</strong>: '.$row['manufacturer_name'].'</p>';
 	 	echo '<p><strong>SKU</strong>: '.$row['sku'].'</p>';
 	 	echo '<p><strong>Price</strong>: '.$row['price'].($row['on_hand_qty']>0?" <strong>Qty:</strong> ".$row['on_hand_qty']:"<strong>Out of Stock</strong>'" ).'</p>';
-	 	echo "<button type='button' ".($row['on_hand_qty']>0?"":"disabled='disabled'" )." onclick='addCart(".json_encode(array ('pid' => $pro_id, 'pn' => $row['name'], 'pp' => $row['price'], 'pmq' => $row['on_hand_qty']  )).")'>Add to Cart</button>";
+	 	echo "<button type='button' ".($row['on_hand_qty']>0?"":"disabled='disabled'" )." onclick='addCart(".json_encode(array ('pid' => $pro_id, 'pn' => $row['name'], 'pp' => $row['price'], 'pmq' => $row['on_hand_qty']  ), JSON_HEX_APOS | JSON_HEX_QUOT).")'>Add to Cart</button>";
 	 	echo '<p><strong style="font-size:125%;">Description:</strong> <br/>'.$row['long_description'].'</p>';
 	 	echo '<p>Made in: '.$row['country'].'</p>';
 	 	echo '</div>';

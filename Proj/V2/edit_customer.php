@@ -2,8 +2,11 @@
 session_start(); // Access the existing session.
 $page_title = 'Edit User';
 include ('includes/header.html');//admin header
-//include('debug.php');//debug scripts
 
+//include validator script
+?>
+<script type="text/javascript" src="includes/validator.js"></script>
+<?php
 #Check for Cust ID
 if((isset($_SESSION['customer_id'])) && (is_numeric($_SESSION['customer_id']))){
 	$customer_id = $_SESSION['customer_id'];

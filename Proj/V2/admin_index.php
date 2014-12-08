@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 $page_title = 'AdministratorHome Page'; 
 include('includes/admin.html');
+
 // Print any error messages, if they exist:
 if (isset($errors) && !empty($errors)) {
 	echo '<h1>Error!</h1>

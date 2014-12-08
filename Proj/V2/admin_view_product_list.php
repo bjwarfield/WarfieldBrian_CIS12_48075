@@ -2,14 +2,20 @@
 	session_name('PHPADMINID');
 	session_start();
 	$page_title = 'Product List Administration';//name page
-	 include('includes/admin.html'); 
+	include('debug.php');
 
-
+	//check for paginator cookie
+	if (isset($_COOKIE['i_page'])){
+		$paginator = json_decode($_COOKIE['i_page'], TRUE);
+		$display = $paginator['display'];
+		$sort = $paginator['sort'];	
+	} 
+	// out_obj($paginator);
 	//check $_GET for validity, set defaul if not 
 	if(isset($_GET['display'])&& is_numeric($_GET['display'])){
-		$display = $_GET['display'];
-	}else{
-		$display = 10;
+		$paginator["display"] = $display = $_GET['display'];
+	}else if(!isset($paginator["display"])){
+		$paginator["display"] = $display = 10;
 	}
 
 	// Count how many products are in current category
@@ -30,8 +36,13 @@
 	// Determine where in the database to start returning results...
 	$start = (isset($_GET['s']) && is_numeric($_GET['s']) && $_GET['s'] <= $records-1 && $_GET['s']>=0 ) ? $_GET['s'] : 0;
 
-	// Check $_GET for sort validity, Default to Name ASC
-	$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'namea';
+	// Check $_GET and cookie data for sort validity, Default to Name ASC
+	//check $_GET for validity, set defaul if not 
+	if(isset($_GET['sort'])){
+		$paginator["sort"] = $sort = $_GET['sort'];
+	}else if(!isset($paginator["sort"])){
+		$paginator["sort"] = $sort = 'namea';
+	}
 
 	// Determine the sorting order:
 	//set variable for query
@@ -65,6 +76,11 @@
 		$sort = 'namea';
 		break;
 	}
+	$paginator['sort'] = $sort;
+
+
+	//store pagination option in cookie for 30min
+	setcookie("i_page", json_encode($paginator), time()+1800, '/');
 
 	//Paginated links function
 	function page_selector(){
@@ -118,6 +134,7 @@
 			echo '</div>'; // Close the div.
 		}
 	}	
+	include('includes/admin.html'); 
 	#create pagination options
 	 echo '<form class="paginator" action="admin_view_product_list.php" method="get">
 	 			<label>Sort</label>
