@@ -76,9 +76,9 @@
 	// Count how many products are in current category
 	 @require("project_DBconnect.php");
 	 if(!isset($va)){//if not View all, select category
-	 	$q = 'SELECT COUNT( `xref_product_categories`.`product_id` ), `xref_product_categories`.`category_id` FROM `xref_product_categories`, `entity_products`, `entity_categories` WHERE `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `entity_products`.`enabled` = TRUE AND `xref_product_categories`.`category_id` = '.$cat_id.';';
+	 	$q = 'SELECT COUNT( `bw1780661_xref_product_categories`.`product_id` ), `bw1780661_xref_product_categories`.`category_id` FROM `bw1780661_xref_product_categories`, `bw1780661_entity_products`, `bw1780661_entity_categories` WHERE `bw1780661_xref_product_categories`.`product_id` = `bw1780661_entity_products`.`product_id` AND `bw1780661_xref_product_categories`.`category_id` = `bw1780661_entity_categories`.`category_id` AND `bw1780661_entity_products`.`enabled` = TRUE AND `bw1780661_xref_product_categories`.`category_id` = '.$cat_id.';';
 	 }else{//otherwise get all enabled products
-	 	$q = 'SELECT COUNT( `entity_products`.`product_id` ) FROM  `entity_products` WHERE `entity_products`.`enabled` = TRUE;';
+	 	$q = 'SELECT COUNT( `bw1780661_entity_products`.`product_id` ) FROM  `bw1780661_entity_products` WHERE `bw1780661_entity_products`.`enabled` = TRUE;';
 	 }
 	$r = @mysqli_query ($dbc, $q);
 		
@@ -183,9 +183,9 @@
 
 	//Query for products within the qualified range
 	if(!isset($va)){
-		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url`, `entity_categories`.`category_id` FROM  `xref_product_categories`,   `entity_categories`,  `entity_products` WHERE `xref_product_categories`.`category_id` = `entity_categories`.`category_id` AND `xref_product_categories`.`product_id` = `entity_products`.`product_id` AND `entity_products`.`enabled` = TRUE AND `entity_categories`.`category_id`= '.$cat_id.' ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+		$q = 'SELECT `bw1780661_entity_products`.`product_id`, `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`short_description`, `bw1780661_entity_products`.`price`, `bw1780661_entity_products`.`on_hand_qty`,  `bw1780661_entity_products`.`image_url`, `bw1780661_entity_categories`.`category_id` FROM  `bw1780661_xref_product_categories`,   `bw1780661_entity_categories`,  `bw1780661_entity_products` WHERE `bw1780661_xref_product_categories`.`category_id` = `bw1780661_entity_categories`.`category_id` AND `bw1780661_xref_product_categories`.`product_id` = `bw1780661_entity_products`.`product_id` AND `bw1780661_entity_products`.`enabled` = TRUE AND `bw1780661_entity_categories`.`category_id`= '.$cat_id.' ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	}else{//select all enabled products 
-		$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`short_description`, `entity_products`.`price`, `entity_products`.`on_hand_qty`,  `entity_products`.`image_url` FROM   `entity_products` WHERE  `entity_products`.`enabled` = TRUE GROUP BY `entity_products`.`product_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+		$q = 'SELECT `bw1780661_entity_products`.`product_id`, `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`short_description`, `bw1780661_entity_products`.`price`, `bw1780661_entity_products`.`on_hand_qty`,  `bw1780661_entity_products`.`image_url` FROM   `bw1780661_entity_products` WHERE  `bw1780661_entity_products`.`enabled` = TRUE GROUP BY `bw1780661_entity_products`.`product_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	}
 	
 	 $r = mysqli_query($dbc, $q);

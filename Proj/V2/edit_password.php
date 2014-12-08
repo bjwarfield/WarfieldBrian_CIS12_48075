@@ -71,14 +71,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		// Check old password
 		
 		// Make the query:
-		$q = "SELECT `customer_id` FROM `entity_customers` WHERE (customer_id = $customer_id AND pass = SHA1('$p'))";	
+		$q = "SELECT `customer_id` FROM `bw1780661_entity_customers` WHERE (customer_id = $customer_id AND pass = SHA1('$p'))";	
 		
 		//out_var($q);
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 
 		if ($r->num_rows == 1) { //if old Password matches
 			$r->free;//clear results
-			$q="UPDATE `entity_customers` SET `pass` = SHA1('$np') WHERE `customer_id` = $customer_id";
+			$q="UPDATE `bw1780661_entity_customers` SET `pass` = SHA1('$np') WHERE `customer_id` = $customer_id";
 			$r = @mysqli_query($dbc, $q);//update with new password
 			if(mysqli_affected_rows($dbc)==1){//successful update
 				header( "Location:".$_SERVER["PHP_SELF"].'?showmsg=confirm' ); 
@@ -123,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 }
 
-$q = "SELECT * FROM `entity_customers` WHERE `customer_id` = $customer_id;";
+$q = "SELECT * FROM `bw1780661_entity_customers` WHERE `customer_id` = $customer_id;";
 $r = @mysqli_query($dbc, $q);
 
 if ($r->num_rows == 1){

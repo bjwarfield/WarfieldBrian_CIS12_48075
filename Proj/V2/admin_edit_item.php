@@ -131,7 +131,7 @@
 		if(empty($errors)){#if no errors
 			@require('project_DBconnect.php');
 			#update DB record with validated values
-			$q = "UPDATE entity_products SET `name` = '$name', `sku` = '$sku', `short_description` = '$sd', `long_description` = '$ld', `on_hand_qty` = '$oh_qty', `taxable`= $tax, `price` = $price, `cost` = $cost, `manufacturer_id` = $man_id, `upc` = '$upc', `shipping_weight` = $sw, `country_id` = $country_id, `image_url` = '$iu' WHERE `product_id` = $pro_id;";
+			$q = "UPDATE bw1780661_entity_products SET `name` = '$name', `sku` = '$sku', `short_description` = '$sd', `long_description` = '$ld', `on_hand_qty` = '$oh_qty', `taxable`= $tax, `price` = $price, `cost` = $cost, `manufacturer_id` = $man_id, `upc` = '$upc', `shipping_weight` = $sw, `country_id` = $country_id, `image_url` = '$iu' WHERE `product_id` = $pro_id;";
 			$r= @mysqli_query($dbc,$q);
 
 
@@ -162,7 +162,7 @@
 	<?PHP
 
 	#get enumerated list of Coutry IDs
-	$q = 'SELECT `country_id`, `country` FROM `enum_country`';
+	$q = 'SELECT `country_id`, `country` FROM `bw1780661_enum_country`';
 	$r = @mysqli_query($dbc, $q);
 	$enum_country = array();
 	while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
@@ -171,7 +171,7 @@
 	if(is_object($r))$r->free();#Free query result
 	
 	#get enumerated list of manufacturer IDs
-	$q = 'SELECT `manufacturer_id`, `manufacturer_name` FROM `enum_manufacturer`';
+	$q = 'SELECT `manufacturer_id`, `manufacturer_name` FROM `bw1780661_enum_manufacturer`';
 	$r = @mysqli_query($dbc, $q);
 	$enum_manufacturer = array();
 	while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
@@ -179,7 +179,7 @@
 	}	 
 	if(is_object($r))$r->free();#Free query result
 
-	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`short_description`, `entity_products`.`long_description`, `entity_products`.`on_hand_qty`, `entity_products`.`taxable`, `entity_products`.`price`, `entity_products`.`cost`, `entity_products`.`manufacturer_id`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`upc`, `entity_products`.`shipping_weight`, `entity_products`.`country_id`, `enum_country`.`country`, `entity_products`.`enabled`, `entity_products`.`image_url` FROM { OJ `entity_products` LEFT OUTER JOIN `enum_country` ON `entity_products`.`country_id` = `enum_country`.`country_id` LEFT OUTER JOIN  `enum_manufacturer` ON `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` }, `entity_atribute_set` WHERE `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` AND `entity_products`.`product_id` = '.$pro_id.';';
+	$q = 'SELECT `bw1780661_entity_products`.`product_id`, `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`sku`, `bw1780661_entity_products`.`short_description`, `bw1780661_entity_products`.`long_description`, `bw1780661_entity_products`.`on_hand_qty`, `bw1780661_entity_products`.`taxable`, `bw1780661_entity_products`.`price`, `bw1780661_entity_products`.`cost`, `bw1780661_entity_products`.`manufacturer_id`, `bw1780661_enum_manufacturer`.`manufacturer_name`, `bw1780661_entity_products`.`upc`, `bw1780661_entity_products`.`shipping_weight`, `bw1780661_entity_products`.`country_id`, `bw1780661_enum_country`.`country`, `bw1780661_entity_products`.`enabled`, `bw1780661_entity_products`.`image_url` FROM { OJ `bw1780661_entity_products` LEFT OUTER JOIN `bw1780661_enum_country` ON `bw1780661_entity_products`.`country_id` = `bw1780661_enum_country`.`country_id` LEFT OUTER JOIN  `bw1780661_enum_manufacturer` ON `bw1780661_entity_products`.`manufacturer_id` = `bw1780661_enum_manufacturer`.`manufacturer_id` }, `bw1780661_entity_atribute_set` WHERE `bw1780661_entity_products`.`atribute_set_id` = `bw1780661_entity_atribute_set`.`atribute_set_id` AND `bw1780661_entity_products`.`product_id` = '.$pro_id.';';
 
 	$r = @mysqli_query($dbc, $q);
 

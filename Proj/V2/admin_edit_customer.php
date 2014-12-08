@@ -49,7 +49,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 	}else{
 		if(preg_match("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/", $_POST['email'])){
 			$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
-			$e_query = "SELECT customer_id FROM entity_customers WHERE email = '$e' && customer_id != $customer_id;";
+			$e_query = "SELECT customer_id FROM bw1780661_entity_customers WHERE email = '$e' && customer_id != $customer_id;";
 			//out_var($e_query);
 			$e_check = @mysqli_query($dbc, $e_query); 
 			if(mysqli_num_rows($e_check)>0){
@@ -130,7 +130,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "UPDATE entity_customers SET `first_name` = '$fn', `last_name` = '$ln', `email` =  '$e', `company` = '$co', `address_1` = '$ad1', `address_2` = '$ad2' , `city` = '$city', `state` = '$state', `zip_code` = '$zip', `phone_1` = '$p1', `phone_2` = '$p2', `customer_status_id`= $csid WHERE `entity_customers`.`customer_id` = $customer_id;";	
+		$q = "UPDATE bw1780661_entity_customers SET `first_name` = '$fn', `last_name` = '$ln', `email` =  '$e', `company` = '$co', `address_1` = '$ad1', `address_2` = '$ad2' , `city` = '$city', `state` = '$state', `zip_code` = '$zip', `phone_1` = '$p1', `phone_2` = '$p2', `customer_status_id`= $csid WHERE `bw1780661_entity_customers`.`customer_id` = $customer_id;";	
 		
 		//out_var($q);
 		$r = @mysqli_query ($dbc, $q); // Run the query.
@@ -175,7 +175,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 }
 
 #get enumerated list of Status IDs
-$q = 'SELECT * FROM `enum_customer_status`';
+$q = 'SELECT * FROM `bw1780661_enum_customer_status`';
 $r = @mysqli_query($dbc, $q);
 $enum_status = array();
 while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
@@ -184,7 +184,7 @@ while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
 if(is_object($r))$r->free();#Free query result
 
 
-$q = "SELECT * FROM `entity_customers` WHERE `customer_id` = $customer_id;";
+$q = "SELECT * FROM `bw1780661_entity_customers` WHERE `customer_id` = $customer_id;";
 $r = @mysqli_query($dbc, $q);
 
 if ($r->num_rows == 1){

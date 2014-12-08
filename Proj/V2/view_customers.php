@@ -15,7 +15,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 	$pages = $_GET['p'];
 } else { // Need to determine.
  	// Count the number of records:
-	$q = "SELECT COUNT(customer_id) FROM entity_customers";
+	$q = "SELECT COUNT(customer_id) FROM bw1780661_entity_customers";
 	$r = @mysqli_query ($dbc, $q);
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -52,7 +52,7 @@ switch ($sort) {
 }
 	
 // Define the query:
-$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, customer_id FROM entity_customers ORDER BY $order_by LIMIT $start, $display";		
+$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, customer_id FROM bw1780661_entity_customers ORDER BY $order_by LIMIT $start, $display";		
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:

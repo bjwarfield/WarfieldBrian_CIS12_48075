@@ -38,7 +38,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 	}else{
 		if(preg_match("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/", $_POST['email'])){
 			$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
-			$e_query = "SELECT admin_id FROM entity_administrators WHERE email = '$e' ;";
+			$e_query = "SELECT admin_id FROM bw1780661_entity_administrators WHERE email = '$e' ;";
 			//out_var($e_query);
 			$e_check = @mysqli_query($dbc, $e_query); 
 			if(mysqli_num_rows($e_check)>0){
@@ -68,7 +68,7 @@ if((isset($_POST['edit'])) && $_POST['edit'] ==1 ){
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "INSERT INTO entity_administrators VALUES (NULL, '$fn', '$ln', '$e', SHA1('$p'), 1);";	
+		$q = "INSERT INTO bw1780661_entity_administrators VALUES (NULL, '$fn', '$ln', '$e', SHA1('$p'), 1);";	
 		
 		// out_var($q);
 		$r = @mysqli_query ($dbc, $q); // Run the query.

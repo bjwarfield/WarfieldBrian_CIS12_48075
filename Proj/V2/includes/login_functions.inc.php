@@ -52,10 +52,10 @@ function check_login($dbc, $email = '', $pass = '', $admin = false) {
 	if (empty($errors)) { // If everything's OK.
 		if($admin == true){
 			// Retrieve the Administrator information for that email/password combination: and active
-			$q = "SELECT admin_id, first_name, last_name FROM entity_administrators WHERE email='$e' AND pass=SHA1('$p') AND active = TRUE";		
+			$q = "SELECT admin_id, first_name, last_name FROM bw1780661_entity_administrators WHERE email='$e' AND pass=SHA1('$p') AND active = TRUE";		
 		}else{
 			// Retrieve the customer information for that email/password combination: and not banned
-			$q = "SELECT customer_id, first_name, last_name FROM entity_customers WHERE email='$e' AND pass=SHA1('$p') AND customer_status_is != 4";		
+			$q = "SELECT customer_id, first_name, last_name FROM bw1780661_entity_customers WHERE email='$e' AND pass=SHA1('$p') AND customer_status_is != 4";		
 		}
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 

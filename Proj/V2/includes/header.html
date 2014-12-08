@@ -51,7 +51,7 @@ echo (isset($_SESSION['customer_id']))? #if Customer is logged in
 	include('debug.php');
 
 	//Query DB for Category Data
-	$q = 'SELECT category_id, parent_category_id, name FROM entity_categories WHERE is_active = TRUE ORDER BY parent_category_id, position;';
+	$q = 'SELECT category_id, parent_category_id, name FROM bw1780661_entity_categories WHERE is_active = TRUE ORDER BY parent_category_id, position;';
 	$r= @mysqli_query($dbc, $q);
 
 	$data = array();//all category data

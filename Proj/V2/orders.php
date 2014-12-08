@@ -14,7 +14,7 @@ include('includes/header.html');
 
 //get list of customer orders
 @require('project_DBconnect.php');
-$q = "SELECT order_id, order_date, order_status_id, shipping_method_id, order_total FROM entity_orders WHERE customer_id = $customer_id ORDER BY order_date;";
+$q = "SELECT order_id, order_date, order_status_id, shipping_method_id, order_total FROM bw1780661_entity_orders WHERE customer_id = $customer_id ORDER BY order_date;";
 $r = mysqli_query($dbc, $q);
 
 //display msg if no orders available
@@ -39,7 +39,7 @@ foreach ($orders as $key) {
 unset($key);
 
 //get list of order line items
-$q = 'SELECT line_item_id, order_id, product_id, qty, price FROM `entity_order_line_item` where order_id in ('.substr(json_encode($order_id_list),1,-1).');';
+$q = 'SELECT line_item_id, order_id, product_id, qty, price FROM `bw1780661_entity_order_line_item` where order_id in ('.substr(json_encode($order_id_list),1,-1).');';
 $r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -55,7 +55,7 @@ foreach ($orders_lines as $key) {
 unset($key);
 
 //get product names
-$q = 'SELECT product_id, name FROM entity_products WHERE product_id IN ('.substr(json_encode($product_id_list),1,-1).') GROUP BY product_id;';
+$q = 'SELECT product_id, name FROM bw1780661_entity_products WHERE product_id IN ('.substr(json_encode($product_id_list),1,-1).') GROUP BY product_id;';
 $r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -73,7 +73,7 @@ unset($value);
 
 
 //get shipping method per order
-$q = 'SELECT * FROM enum_shipping_method;';
+$q = 'SELECT * FROM bw1780661_enum_shipping_method;';
 if(is_object($r))$r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -90,7 +90,7 @@ unset($key);
 unset($value);
 
 //get order status
-$q = 'SELECT * FROM enum_order_status;';
+$q = 'SELECT * FROM bw1780661_enum_order_status;';
 $r = mysqli_query($dbc, $q);
 unset($q);
 

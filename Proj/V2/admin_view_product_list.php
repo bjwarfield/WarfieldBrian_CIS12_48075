@@ -20,7 +20,7 @@
 
 	// Count how many products are in current category
 	 @require("project_DBconnect.php");
-	$q = 'SELECT count(product_id) FROM entity_products;';
+	$q = 'SELECT count(product_id) FROM bw1780661_entity_products;';
 	$r = @mysqli_query ($dbc, $q);
 	
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
@@ -166,7 +166,7 @@
 			</form>';
 
 	#Query for products within the qualified range
-	$q = 'SELECT `entity_products`.`product_id`, `entity_products`.`name`, `entity_products`.`sku`, `entity_products`.`on_hand_qty`, `entity_products`.`price`, `enum_manufacturer`.`manufacturer_name`, `entity_products`.`shipping_weight`, `enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM { OJ  `entity_products` LEFT OUTER JOIN  `enum_country` ON `entity_products`.`country_id` = `enum_country`.`country_id` LEFT OUTER JOIN `enum_manufacturer` ON `entity_products`.`manufacturer_id` = `enum_manufacturer`.`manufacturer_id` }, `entity_atribute_set` WHERE `entity_products`.`atribute_set_id` = `entity_atribute_set`.`atribute_set_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
+	$q = 'SELECT `bw1780661_entity_products`.`product_id`, `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`sku`, `bw1780661_entity_products`.`on_hand_qty`, `bw1780661_entity_products`.`price`, `bw1780661_enum_manufacturer`.`manufacturer_name`, `bw1780661_entity_products`.`shipping_weight`, `bw1780661_enum_country`.`country`, DATE_FORMAT( `date_added`, "%d %b %Y" ) AS `date_added` FROM { OJ  `bw1780661_entity_products` LEFT OUTER JOIN  `bw1780661_enum_country` ON `bw1780661_entity_products`.`country_id` = `bw1780661_enum_country`.`country_id` LEFT OUTER JOIN `bw1780661_enum_manufacturer` ON `bw1780661_entity_products`.`manufacturer_id` = `bw1780661_enum_manufacturer`.`manufacturer_id` }, `bw1780661_entity_atribute_set` WHERE `bw1780661_entity_products`.`atribute_set_id` = `bw1780661_entity_atribute_set`.`atribute_set_id` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';
 	//echo $q;
 	 $r = mysqli_query($dbc, $q);
 

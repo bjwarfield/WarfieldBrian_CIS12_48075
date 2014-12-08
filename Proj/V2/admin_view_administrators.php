@@ -19,7 +19,7 @@ if(isset($_GET['display'])&& is_numeric($_GET['display'])){
 
 // Determine how many pages there are...
 // Count the number of records:
-$q = "SELECT COUNT(admin_id) FROM entity_administrators";
+$q = "SELECT COUNT(admin_id) FROM bw1780661_entity_administrators";
 $r = @mysqli_query ($dbc, $q);
 $row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 $records = $row[0];
@@ -52,7 +52,7 @@ switch ($sort) {
 }
 	
 // Define the query:
-$q = 'SELECT `admin_id`, `last_name`, `first_name`, `active` FROM `entity_administrators` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';		
+$q = 'SELECT `admin_id`, `last_name`, `first_name`, `active` FROM `bw1780661_entity_administrators` ORDER BY '.$order_by.' LIMIT '.$start.', '.$display.';';		
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 //Display Pagination options

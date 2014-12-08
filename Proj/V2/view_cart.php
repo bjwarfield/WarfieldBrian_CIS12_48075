@@ -17,7 +17,7 @@ if (isset($_COOKIE["cart"]) && !empty(json_decode($_COOKIE["cart"], true))) {
 
 
 //get list of enabled product IDs
-$q = 'SELECT `product_id` FROM `entity_products` WHERE `enabled` = true;';
+$q = 'SELECT `product_id` FROM `bw1780661_entity_products` WHERE `enabled` = true;';
 $r = mysqli_query ($dbc, $q);
 $product_id_list = array();
 while ($row = mysqli_fetch_array($r,MYSQLI_ASSOC )){
@@ -44,7 +44,7 @@ unset($cart_line);
 
 
 //get list of carts in cart
-$qp = 'SELECT `product_id`, `name`, `on_hand_qty`, `price` FROM  `entity_products` WHERE `product_id` IN ('.substr(json_encode($cart_id_list), 1, -1).');';
+$qp = 'SELECT `product_id`, `name`, `on_hand_qty`, `price` FROM  `bw1780661_entity_products` WHERE `product_id` IN ('.substr(json_encode($cart_id_list), 1, -1).');';
 $rp = mysqli_query($dbc,$qp);
 unset($qp);
 $x = mysqli_fetch_all($rp,MYSQLI_ASSOC );

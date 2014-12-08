@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST["order_id"])  && is_numeri
 	if(isset($_POST['order_status_id']) && is_numeric($_POST['order_status_id'])){
 		$order_status_id = mysqli_real_escape_string($dbc, trim($_POST['order_status_id']));
 
-		$q = "UPDATE entity_orders SET order_status_id = $order_status_id WHERE order_id = $order_id;"; 
+		$q = "UPDATE bw1780661_entity_orders SET order_status_id = $order_status_id WHERE order_id = $order_id;"; 
 		$r = mysqli_query($dbc, $q);
 		// unset($q);
 		if($r){#successful query
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST["order_id"])  && is_numeri
 
 //get list of customer orders
 
-$q = "SELECT `entity_orders`.`order_id`, `entity_customers`.`last_name`, `entity_customers`.`first_name`, `entity_orders`.`order_date`, `enum_shipping_method`.`shipping_method`, `entity_orders`.`order_total`, `enum_order_status`.`order_status`, `entity_customers`.`company`, `entity_customers`.`address_1`, `entity_customers`.`address_2`, `entity_customers`.`city`, `entity_customers`.`state`, `entity_customers`.`zip_code`, `entity_customers`.`phone_1`, `entity_customers`.`phone_2` FROM `entity_orders`, `entity_customers`, `enum_order_status`, `enum_shipping_method` WHERE `entity_orders`.`customer_id` = `entity_customers`.`customer_id` AND `entity_orders`.`order_status_id` = `enum_order_status`.`order_status_id` AND `entity_orders`.`shipping_method_id` = `enum_shipping_method`.`shipping_method_id` AND order_id = $order_id;";
+$q = "SELECT `bw1780661_entity_orders`.`order_id`, `bw1780661_entity_customers`.`last_name`, `bw1780661_entity_customers`.`first_name`, `bw1780661_entity_orders`.`order_date`, `bw1780661_enum_shipping_method`.`shipping_method`, `bw1780661_entity_orders`.`order_total`, `bw1780661_enum_order_status`.`order_status`, `bw1780661_entity_customers`.`company`, `bw1780661_entity_customers`.`address_1`, `bw1780661_entity_customers`.`address_2`, `bw1780661_entity_customers`.`city`, `bw1780661_entity_customers`.`state`, `bw1780661_entity_customers`.`zip_code`, `bw1780661_entity_customers`.`phone_1`, `bw1780661_entity_customers`.`phone_2` FROM `bw1780661_entity_orders`, `bw1780661_entity_customers`, `bw1780661_enum_order_status`, `bw1780661_enum_shipping_method` WHERE `bw1780661_entity_orders`.`customer_id` = `bw1780661_entity_customers`.`customer_id` AND `bw1780661_entity_orders`.`order_status_id` = `bw1780661_enum_order_status`.`order_status_id` AND `bw1780661_entity_orders`.`shipping_method_id` = `bw1780661_enum_shipping_method`.`shipping_method_id` AND order_id = $order_id;";
 $r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -44,7 +44,7 @@ $r -> free();
 
 
 //get list of order line items
-$q = "SELECT `entity_products`.`name`, `entity_order_line_item`.`qty`, `entity_order_line_item`.`price` FROM `entity_order_line_item`, `entity_products` WHERE `entity_order_line_item`.`product_id` = `entity_products`.`product_id` AND order_id = $order_id;";
+$q = "SELECT `bw1780661_entity_products`.`name`, `bw1780661_entity_order_line_item`.`qty`, `bw1780661_entity_order_line_item`.`price` FROM `bw1780661_entity_order_line_item`, `bw1780661_entity_products` WHERE `bw1780661_entity_order_line_item`.`product_id` = `bw1780661_entity_products`.`product_id` AND order_id = $order_id;";
 $r = mysqli_query($dbc, $q);
 unset($q);
 
@@ -52,7 +52,7 @@ $orders_lines = mysqli_fetch_all($r, MYSQLI_ASSOC);
 $r -> free();
 
 //get orderstatus enumeration
-$q = 'SELECT * FROM enum_order_status;';
+$q = 'SELECT * FROM bw1780661_enum_order_status;';
 $r = mysqli_query($dbc, $q);
 unset($q);
 

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}else{
 		if(preg_match("/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/", $_POST['email'])){
 			$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
-			$e_query = "SELECT customer_id FROM entity_customers WHERE email = '$e'";
+			$e_query = "SELECT customer_id FROM bw1780661_entity_customers WHERE email = '$e'";
 			$e_check = @mysqli_query($dbc, $e_query); 
 			if(mysqli_num_rows($e_check)>0){
 				$errors[] = "Email already registered";
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "INSERT INTO entity_customers (`first_name`, `last_name`, `email`, `pass`, `registration_date`, `company`, `address_1`, `address_2`, `city`, `state`, `zip_code`, `security_question`, `security_answer`, `phone_1`, `phone_2`, `customer_status_id`) 
+		$q = "INSERT INTO bw1780661_entity_customers (`first_name`, `last_name`, `email`, `pass`, `registration_date`, `company`, `address_1`, `address_2`, `city`, `state`, `zip_code`, `security_question`, `security_answer`, `phone_1`, `phone_2`, `customer_status_id`) 
 		VALUES ('$fn', '$ln', '$e', SHA1('$p'), NOW(), '$co', '$ad1', '$ad2', '$city', '$state', '$zip', '$sq', '$sa', '$p1', '$p2', 1);";	
 		
 		//out_var($q);

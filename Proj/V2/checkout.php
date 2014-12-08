@@ -24,7 +24,7 @@ if (isset($_COOKIE["cart"]) && !empty(json_decode($_COOKIE["cart"], true))) {
 
 
 //get list of enabled product IDs
-$q = 'SELECT `product_id` FROM `entity_products` WHERE `enabled` = true;';
+$q = 'SELECT `product_id` FROM `bw1780661_entity_products` WHERE `enabled` = true;';
 $r = mysqli_query ($dbc, $q);
 $product_id_list = array();
 while ($row = mysqli_fetch_array($r,MYSQLI_ASSOC )){
@@ -47,7 +47,7 @@ unset($pid);
 unset($cart_line);
 
 //get list of carts in cart
-$qp = 'SELECT `product_id`, `name`, `on_hand_qty`, `price` FROM `entity_products` WHERE `product_id` IN ('.substr(json_encode($cart_id_list), 1, -1).');';
+$qp = 'SELECT `product_id`, `name`, `on_hand_qty`, `price` FROM `bw1780661_entity_products` WHERE `product_id` IN ('.substr(json_encode($cart_id_list), 1, -1).');';
 
 $rp = mysqli_query($dbc,$qp);
 unset($qp);
@@ -98,7 +98,7 @@ echo "<p style='text-align: right;padding:5px 10px;border:1px solid #AAA;margin-
 mysqli_autocommit($dbc, false);
 
 // Add the order to the orders table...
-$q = "INSERT INTO entity_orders (customer_id, order_date, shipping_method_id, order_status_id, order_total) VALUES ($customer_id, NOW(), 1, 1, $total)";
+$q = "INSERT INTO bw1780661_entity_orders (customer_id, order_date, shipping_method_id, order_status_id, order_total) VALUES ($customer_id, NOW(), 1, 1, $total)";
 
 $r = mysqli_query($dbc, $q);
 if (mysqli_affected_rows($dbc) == 1){
@@ -110,7 +110,7 @@ if (mysqli_affected_rows($dbc) == 1){
 	// Insert the specific order contents into the database...
 	
 	// Prepare the query:
-	$q = "INSERT INTO entity_order_line_item (order_id, product_id, qty, price) VALUES (?, ?, ?, ?);";
+	$q = "INSERT INTO bw1780661_entity_order_line_item (order_id, product_id, qty, price) VALUES (?, ?, ?, ?);";
 	$stmt = mysqli_prepare($dbc, $q);
 	mysqli_stmt_bind_param($stmt, 'iiid', $oid, $pid, $qty, $price);
 

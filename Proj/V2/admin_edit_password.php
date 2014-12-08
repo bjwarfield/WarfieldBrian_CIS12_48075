@@ -73,14 +73,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		// Check old password
 		
 		// Make the query:
-		$q = "SELECT `admin_id` FROM `entity_administrators` WHERE (admin_id = $admin_id AND pass = SHA1('$p'))";	
+		$q = "SELECT `admin_id` FROM `bw1780661_entity_administrators` WHERE (admin_id = $admin_id AND pass = SHA1('$p'))";	
 		
 		//out_var($q);
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 
 		if ($r->num_rows == 1) { //if old Password matches
 			$r->free;//clear results
-			$q="UPDATE `entity_administrators` SET `pass` = SHA1('$np') WHERE `admin_id` = $admin_id";
+			$q="UPDATE `bw1780661_entity_administrators` SET `pass` = SHA1('$np') WHERE `admin_id` = $admin_id";
 			$r = @mysqli_query($dbc, $q);//update with new password
 			if(mysqli_affected_rows($dbc)==1){//successful update
 				header( "Location:".$_SERVER["PHP_SELF"].'?showmsg=confirm' ); 
@@ -127,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 }
 
-$q = "SELECT * FROM `entity_administrators` WHERE `admin_id` = $admin_id;";
+$q = "SELECT * FROM `bw1780661_entity_administrators` WHERE `admin_id` = $admin_id;";
 $r = @mysqli_query($dbc, $q);
 
 if ($r->num_rows == 1){

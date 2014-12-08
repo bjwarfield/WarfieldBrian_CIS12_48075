@@ -117,7 +117,7 @@
 		if(empty($errors)){#if no errors
 			
 			#update DB record with validated values
-			$q = "INSERT INTO entity_products  VALUES (NULL, '$name', 1, '$sku', '$sd', '$ld', '$oh_qty', $tax, $price, $cost, $man_id, '$upc', $sw, $country_id, NOW(), '$iu', $en);";
+			$q = "INSERT INTO bw1780661_entity_products  VALUES (NULL, '$name', 1, '$sku', '$sd', '$ld', '$oh_qty', $tax, $price, $cost, $man_id, '$upc', $sw, $country_id, NOW(), '$iu', $en);";
 			$r= @mysqli_query($dbc,$q);
 
 			if(mysqli_affected_rows($dbc)==1){#successful query
@@ -150,7 +150,7 @@
 	<?PHP
 
 	#get enumerated list of Coutry IDs
-	$q = 'SELECT `country_id`, `country` FROM `enum_country`';
+	$q = 'SELECT `country_id`, `country` FROM `bw1780661_enum_country`';
 	$r = @mysqli_query($dbc, $q);
 	$enum_country = array();
 	while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
@@ -159,7 +159,7 @@
 	if(is_object($r))$r->free();#Free query result
 	
 	#get enumerated list of manufacturer IDs
-	$q = 'SELECT `manufacturer_id`, `manufacturer_name` FROM `enum_manufacturer`';
+	$q = 'SELECT `manufacturer_id`, `manufacturer_name` FROM `bw1780661_enum_manufacturer`';
 	$r = @mysqli_query($dbc, $q);
 	$enum_manufacturer = array();
 	while ($row = @mysqli_fetch_array($r, MYSQLI_ASSOC)){
