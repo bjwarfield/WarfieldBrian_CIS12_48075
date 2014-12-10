@@ -55,7 +55,7 @@ function check_login($dbc, $email = '', $pass = '', $admin = false) {
 			$q = "SELECT admin_id, first_name, last_name FROM bw1780661_entity_administrators WHERE email='$e' AND pass=SHA1('$p') AND active = TRUE";		
 		}else{
 			// Retrieve the customer information for that email/password combination: and not banned
-			$q = "SELECT customer_id, first_name, last_name FROM bw1780661_entity_customers WHERE email='$e' AND pass=SHA1('$p') AND customer_status_is != 4";		
+			$q = "SELECT customer_id, first_name, last_name FROM bw1780661_entity_customers WHERE email='$e' AND pass=SHA1('$p') AND customer_status_id != 4";		
 		}
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 
