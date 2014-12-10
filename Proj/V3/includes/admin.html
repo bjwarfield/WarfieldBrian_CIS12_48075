@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>The Bladeshop - <?php echo $page_title ?> </title>
+	<link rel="stylesheet" type="text/css" href="includes/mo_styles.css">
+</head>
+	<header>
+		<h1>The Blade Shop</h1>
+		<h2>Administrator View</h2>
+	</header>
+	<?php
+	//check for login, redirect if not
+	require_once ('includes/login_functions.inc.php');
+	if(!isset($_SESSION['admin_id']) && basename($_SERVER['PHP_SELF']) != 'admin_index.php'){
+		redirect_user('admin_index.php');
+	}
+	echo (isset($_SESSION['admin_id']))?
+	'<nav class="navbar">
+	<p>Welcome Administrator: '.stripslashes($_SESSION['admin_fn']).' '.stripslashes($_SESSION['admin_ln']).'</p> 
+		<ul>
+			<li><a href="admin_view_orders.php">Manage Orders</a></li>
+			<li><a href="admin_view_customers.php">Manage Customers</a></li>
+			<li><a href="admin_view_product_list.php">Manage Product</a><ul>
+				<li><a href="admin_new_item.php">Add New Product</a></li>
+				<li><a href="#">Edit Maufacturers</a></li>
+			</ul></li>
+			<li><a href="#">Manage Categories</a></li>
+			<li>
+				<a href="#">Manage Admin Account</a>
+				<ul>
+					<li><a href="admin_edit_self.php">Edit Accout Info</a></li>
+					<li><a href="admin_edit_password.php">Edit Password</a></li>
+					<li><a href="admin_view_administrators.php">View Administrators</a></li>
+					<li><a href="admin_new_admin.php">Register New Administrator</a></li>
+					<li><a href="admin_logout.php">Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav> '
+	:'<nav class="navbar"><ul><li>&nbsp;</li></ul></nav>';
+
+
+
+?>
+<div class="content">
+	<!-- Individial page content starts here  -->
