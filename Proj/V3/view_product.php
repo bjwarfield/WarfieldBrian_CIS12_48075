@@ -12,9 +12,8 @@
 
 	 @require("project_DBconnect.php");
 
-	 $q = 'SELECT `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`sku`, `bw1780661_entity_products`.`short_description`, `bw1780661_entity_products`.`long_description`, `bw1780661_entity_products`.`price`, `bw1780661_entity_products`.`on_hand_qty`, `bw1780661_enum_manufacturer`.`manufacturer_name`, `bw1780661_entity_products`.`upc`, `bw1780661_enum_country`.`country`, `bw1780661_entity_products`.`image_url` FROM  `bw1780661_entity_products`, `bw1780661_enum_country`, `bw1780661_entity_atribute_set`, `bw1780661_enum_manufacturer` WHERE `bw1780661_entity_products`.`country_id` = `bw1780661_enum_country`.`country_id` AND `bw1780661_entity_products`.`atribute_set_id` = `bw1780661_entity_atribute_set`.`atribute_set_id` AND `bw1780661_entity_products`.`manufacturer_id` = `bw1780661_enum_manufacturer`.`manufacturer_id` AND `bw1780661_entity_products`.`product_id` = '.$pro_id.' ;';
+	 $q = 'SELECT `bw1780661_entity_products`.`name`, `bw1780661_entity_products`.`sku`, `bw1780661_entity_products`.`short_description`, `bw1780661_entity_products`.`long_description`, `bw1780661_entity_products`.`price`, `bw1780661_entity_products`.`on_hand_qty`, `bw1780661_enum_manufacturer`.`manufacturer_name`, `bw1780661_entity_products`.`upc`, `bw1780661_enum_country`.`country`, `bw1780661_entity_products`.`image_url` FROM { OJ `bw1780661_entity_products` LEFT OUTER JOIN `bw1780661_enum_country` ON `bw1780661_entity_products`.`country_id` = `bw1780661_enum_country`.`country_id` LEFT OUTER JOIN `bw1780661_enum_manufacturer` ON `bw1780661_entity_products`.`manufacturer_id` = `bw1780661_enum_manufacturer`.`manufacturer_id` }, `bw1780661_entity_atribute_set` WHERE `bw1780661_entity_products`.`atribute_set_id` = `bw1780661_entity_atribute_set`.`atribute_set_id` AND `bw1780661_entity_products`.`product_id` = '.$pro_id.' ;';
 	 $r = mysqli_query($dbc, $q);
-
 	 
 	 if ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 

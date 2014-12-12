@@ -13,19 +13,19 @@
 	$s_desc = substr($desc,0,120);
 	
 	#Keen Edge
-	/*for($i = 0; $i < 15; $i++ ){
+	for($i = 0; $i < 15; $i++ ){
 		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("KeenEdge - '.ucwords(rand_color()).' '.ucfirst(rand_animal()).'", 1, "KE'.substr(upc(),0,4).'", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.(mt_rand(20,60)*5).', '.(mt_rand(20,60)*2.5).', 1, "'.upc().'", 1, 36, NOW());<br />';
-	}*/
+	}
 
-/*	#Spec Warrior
+	#Spec Warrior
 	for($i = 0; $i < 15; $i++ ){
 		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("SpecWarrior - '.ucwords(rand_prefix()).' '.ucfirst(rand_warrior()).'", 1, "SW'.substr(upc(),0,4).'", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.(mt_rand(10,30)*5).', '.(mt_rand(10,30)*2.5).', 2, "'.upc().'", 1, 33, NOW());<br />';
-	}*/
+	}
 
-/*	#spartan Forge
+	#spartan Forge
 	for($i = 0; $i < 15; $i++ ){
 		echo 'INSERT INTO `bladeshop`.`entity_products` (`name`, `atribute_set_id`, `sku`, `short_description`, `long_description`, `on_hand_qty`, `taxable`, `price`, `cost`, `manufacturer_id`, `upc`, `shipping_weight`, `country_id`, `date_added`) VALUES ("Spartan Forge - '.ucwords(rand_warrior()).' '.ucfirst(rand_blade()).'", 3, "SF'.substr(upc(),0,4).'", "'.$s_desc.'", "'.$desc.'", '.mt_rand(1,20).', 1, '.(mt_rand(20,80)*10).', '.(mt_rand(20,80)*2.5).', 5, "'.upc().'", '.mt_rand(3,10).', '.array(6,17,30,33)[mt_rand(0,3)].', NOW());<br />';
-	}*/
+	}
 	
 	#Fantasy Replica
 /*	for($i = 0; $i < 15; $i++ ){
@@ -56,7 +56,7 @@
 
 */
 	#category assignment
-	$q = 'SELECT product_id, name FROM  entity_products where manufacturer_id = 9 ';
+/*	$q = 'SELECT product_id, name FROM  entity_products where manufacturer_id = 9 ';
 	$r= @mysqli_query ($dbc, $q);
 
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
@@ -64,7 +64,7 @@
 		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(10, '.$row['product_id'].');<br />';
 		echo 'INSERT INTO xref_product_categories (`category_id`, `product_id`) VALUES(24, '.$row['product_id'].');<br />';
 	}
-	mysqli_close($dbc);
+	mysqli_close($dbc);*/
 ?>
 	
 </body>

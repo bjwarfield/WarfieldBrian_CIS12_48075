@@ -15,6 +15,7 @@ include('includes/header.html');
 //get list of customer orders
 @require('project_DBconnect.php');
 $q = "SELECT order_id, order_date, order_status_id, shipping_method_id, order_total FROM bw1780661_entity_orders WHERE customer_id = $customer_id ORDER BY order_date;";
+
 $r = mysqli_query($dbc, $q);
 
 //display msg if no orders available

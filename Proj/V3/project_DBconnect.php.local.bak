@@ -1,14 +1,13 @@
 <?php 
-#Class Server
 
 // This file contains the database access information. 
 // This file also establishes a connection to MySQL, 
 // selects the database, and sets the encoding.
 
 // Set the database access information as constants:
-DEFINE ('DB_USER', '48075');
-DEFINE ('DB_PASSWORD', '48075cis12');
-DEFINE ('DB_HOST', '209.129.8.5');
+DEFINE ('DB_USER', 'root');
+DEFINE ('DB_PASSWORD', '');
+DEFINE ('DB_HOST', 'localhost');
 DEFINE ('DB_NAME', 'test');
 
 // Make the connection:

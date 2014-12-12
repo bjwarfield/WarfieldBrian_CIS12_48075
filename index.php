@@ -36,13 +36,13 @@
 		<h3><a href="Proj">Final Project (Business)</a></h3>
 		<ul>
 			<li><a href="Proj/V1/DB_Schema.png">Database Design</a></li>
-			<li><a href="Proj/V2/">Store Home Page</a></li>
-			<li><a href="Proj/V2/login.php">Customer Login</a></li>
-			<li><a href="Proj/V2/register.php">Customer Sign In</a></li>
-			<li><a href="Proj/V2/admin/">Administrator Interface</a>(Login Required email:user@admin.com pass:password)</li>
+			<li><a href="Proj/V3/">Store Home Page</a></li>
+			<li><a href="Proj/V3/login.php">Customer Login</a></li>
+			<li><a href="Proj/V3/register.php">Customer Sign up</a></li>
+			<li><a href="Proj/V3/admin/">Administrator Interface</a>(Login Required email:user@admin.com pass:password)</li>
 			<li><a href="Proj/V1/generate_products.php">Generate and modify</a> (Semi)Random Products</li>
 			<li><a href="Proj/V1/generate_users.php">Generate Users</a></li>
-			<li><a href="Proj/V3/view_category.php">Search and Pagination</a></li>
+			<li><a href="Proj/V3/view_category.php?view_all=1">Search and Pagination</a></li>
 			<li><a href="Proj/V3/admin_view_customers.php">Pagination</a> (Administrator Login Required )</li>
 			<li><a href="Proj/V3/includes/">header.html</a> Contains Adjacency List Model, Outputting the category tree in a recursive function "output_cats()"</li>
 			<li><a href="Proj/V3/view_category.php">view_category.php</a> contains a "branch to root" function "breadcrums()" that shows the path of the current category</li>
